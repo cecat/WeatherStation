@@ -6,11 +6,6 @@
   Weather Station functions are adapted from the SparkFun MM_WeatherMeter_Test example.
   (https://github.com/sparkfun/MicroMod_Weather_Carrier_Board/tree/master)
 
-
-  I confess that it seems odd to put all of the main loop functionality inside the onConnectionEstablished() 
-  loop here as my code using MQTT on Particle.io devices sets up the MQTT client in setup() 
-  and allows you to put your logic and publish from the main loop.
-
   @cecat (12/29/23)
   
 */
@@ -25,7 +20,7 @@ const byte WDIR = 35;       //Analog pin for wind direction
 const byte RAIN = 27;       //Digital I/O pin for rain fall
 //Global Variables
 long lastReport;            //Last time we reported so we can time the next report
-int reportStride = 15000;   // report every 15 seconds
+int reportStride = 45000;   // report every reportStride ms (5 min = 300k)
 float wind_dir = 0;         // [degrees (Cardinal)]
 float wind_speed = 0;       // [kph]
 float rain = 0;             // [mm]
@@ -53,7 +48,7 @@ void setup()
   myweatherMeterKit.setADCResolutionBits(10);
   myweatherMeterKit.begin();
   lastReport = 0;
-  Serial.println("Begin data collection!");
+  Serial.println("Begin weather data collection!");
 
 }
 
@@ -62,32 +57,32 @@ void setup()
 void onConnectionEstablished()
 {
   
-  // Subscribe to "ha/weather" and display received message to Serial
-  client.subscribe("ha/weather", [](const String & payload) {
+  // Subscribe to "ha/wind/speed" and display received message to Serial
+  client.subscribe("ha/wind/speed", [](const String & payload) {
+    Serial.println(payload);
+  });
+    // Subscribe to "ha/wind/dir" and display received message to Serial
+  client.subscribe("ha/wind/dir", [](const String & payload) {
+    Serial.println(payload);
+  });
+    // Subscribe to "ha/rain/total" and display received message to Serial
+  client.subscribe("ha/rain/total", [](const String & payload) {
     Serial.println(payload);
   });
 
- // Publish a message to "ha/weather"
-  client.publish("ha/weather", "let us begin"); // You can activate the retain flag by setting the third parameter to true
-
-  while (1) {
-    if (millis() - lastReport >= reportStride) {
-    digitalWrite(LED_BUILTIN, HIGH);  //Blink stat LED
-    //Get and print all readings every 5s
-    printWeather();
-    //Send wind speed to HA
-    client.publish("ha/weather/windspeed", String(wind_speed));
-    lastReport = millis();
-  }
-
-  digitalWrite(LED_BUILTIN, LOW);  //Turn off stat LED
-
-  delay(100);
-  }
 }
 
 void loop()
 {
+  if (millis() - lastReport >= reportStride){
+    printWeather();
+    lastReport = millis();
+    client.publish("ha/wind/speed", String(wind_speed));
+    delay(500);
+    client.publish("ha/wind/dir", String(wind_dir));
+    delay(500);
+    client.publish("ha/rain/total", String(rain));
+  }
   client.loop();
 
 }
