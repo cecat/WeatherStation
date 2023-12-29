@@ -16,6 +16,8 @@ EspMQTTClient client(
   MQTT_BROKER, MQTT_USR, MQTT_PWD, // MQTT broker, username, password
   MQTT_CLIENT, 1883);		   // MQTT client name and port
 
+int counter = 0;
+
 void setup()
 {
   Serial.begin(115200);
@@ -31,26 +33,24 @@ void setup()
 // WARNING : YOU MUST IMPLEMENT IT IF YOU USE EspMQTTClient
 void onConnectionEstablished()
 {
-  // Subscribe to "mytopic/test" and display received message to Serial
-  client.subscribe("mytopic/test", [](const String & payload) {
+  
+  // Subscribe to "ha/weather" and display received message to Serial
+  client.subscribe("ha/weather", [](const String & payload) {
     Serial.println(payload);
   });
 
-  // Subscribe to "mytopic/wildcardtest/#" and display received message to Serial
-  client.subscribe("mytopic/wildcardtest/#", [](const String & topic, const String & payload) {
-    Serial.println("(From wildcard) topic: " + topic + ", payload: " + payload);
-  });
+ // Publish a message to "ha/weather"
+  client.publish("ha/weather", "let us begin"); // You can activate the retain flag by setting the third parameter to true
 
-  // Publish a message to "mytopic/test"
-  client.publish("mytopic/test", "Message from CeC's weather station"); // You can activate the retain flag by setting the third parameter to true
-
-  // Execute delayed instructions
-  client.executeDelayed(5 * 1000, []() {
-    client.publish("mytopic/wildcardtest/test123", "And another 5 seconds later.  Oh yeah.");
-  });
+  while (counter < 10) {
+    delay(2000);
+    client.publish("ha/weather", String(counter));
+    counter++;
+  }
 }
 
 void loop()
 {
   client.loop();
+
 }
