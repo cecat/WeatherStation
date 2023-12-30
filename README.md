@@ -10,8 +10,7 @@ and
 ## Dependencies
 
 The code here uses MQTT/WiFi to communicate with 
-[Home Assistant](https://www.home-assistant.io/) using the
-[MQTT integration](https://www.home-assistant.io/integrations/mqtt/).
+[Home Assistant](https://www.home-assistant.io/).
 
 This code borrows heavily from the WiFi/MQTT library
 [EspMQTTClient](https://github.com/plapointe6/EspMQTTClient)
@@ -36,3 +35,18 @@ librarires, etc.
 From the Arduino IDE app you will need to use the library manager to
 install the libraries for the weather station and each of its sensors,
 in addition to the EspMQTTClient library (see the #includes in the code).
+
+## About Home Assistant and the Broker used here...
+I'm using a Home Assistant
+[MQTT integration](https://www.home-assistant.io/integrations/mqtt/). 
+The integration implements a broker and
+you use MQTT topics (in the code, the *ha/wind/speed*, *ha/wind/dir", etc. 
+are topics) to match the payload of each topic to a variable you can use 
+or display in HA.  Each device has a separate client name (i.e., the device
+that is sending the data) so HA knows 
+where the measurement is coming from).
+
+HA integration is beyond the scope of this example but (using a different
+MQTT client for Particle.io devices) you can see code and more detailed
+instructions in my 
+[UtilityWatchMQTT](https://github.com/cecat/UtilityWatchMQTT) repo..
