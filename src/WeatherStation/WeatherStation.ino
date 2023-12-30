@@ -19,36 +19,45 @@ const byte WSPEED = 14;     //Digital I/O pin for wind speed
 const byte WDIR = 35;       //Analog pin for wind direction
 const byte RAIN = 27;       //Digital I/O pin for rain fall
 //Global Variables
-long lastReport;            //Last time we reported so we can time the next report
-int reportStride = 45000;   // report every reportStride ms (5 min = 300k)
 float wind_dir = 0;         // [degrees (Cardinal)]
 float wind_speed = 0;       // [kph]
 float rain = 0;             // [mm]
-
+bool goTime = false;        // did the timer fire?
 SFEWeatherMeterKit myweatherMeterKit(WDIR, WSPEED, RAIN);  // Create an instance of the weather meter kit
 
 
 EspMQTTClient client(
   WIFI_SSID, WIFI_PWD,             // wifi ssid and password
   MQTT_BROKER, MQTT_USR, MQTT_PWD, // MQTT broker, username, password
-  MQTT_CLIENT, 1883);		   // MQTT client name and port
+  MQTT_CLIENT, 1883);		           // MQTT client name and port
 
-int counter = 0;
+// interrupt timer to check and report weather data
+int weatherCheckFreq = 30000000; // interval to check and report (in microseconds)
+hw_timer_t *Wc_timer = NULL;
+void IRAM_ATTR onNudge() {
+  goTime = true;
+}
 
 void setup()
 {
   Serial.begin(115200);
-  delay(1000);
+  delay(100);
   // Optional functionalities of EspMQTTClient
   client.enableDebuggingMessages(); // Enable debugging messages sent to serial output
   //client.enableHTTPWebUpdater(); // Enable the web updater. User and password default to values of MQTTUsername and MQTTPassword. These can be overridded with enableHTTPWebUpdater("user", "password").
   //client.enableOTA(); // Enable OTA (Over The Air) updates. Password defaults to MQTTPassword. Port is the default OTA port. Can be overridden with enableOTA("password", port).
   //client.enableLastWillMessage("TestClient/lastwill", "I am going offline");  // You can activate the retain flag by setting the third parameter to true
 
+  // set up interrupt timer
+  // for details on ESP32 timers see https://circuitdigest.com/microcontroller-projects/esp32-timers-and-timer-interrupts
+  Wc_timer = timerBegin(0, 80, true);   // set up the timer to count up in microsecs (80MHz cpu / 80 prescaler)
+  timerAttachInterrupt(Wc_timer, &onNudge, true); 
+  timerAlarmWrite(Wc_timer, weatherCheckFreq, true);
+  timerAlarmEnable(Wc_timer);
+  delay(500);
+  // set up weather kit
   myweatherMeterKit.setADCResolutionBits(10);
   myweatherMeterKit.begin();
-  lastReport = 0;
-  Serial.println("Begin weather data collection!");
 
 }
 
@@ -72,19 +81,17 @@ void onConnectionEstablished()
 
 }
 
+// all the action happens when the interrupt timer (Wc_timer) fires.
+
 void loop()
 {
-  if (millis() - lastReport >= reportStride){
-    printWeather();
-    lastReport = millis();
-    client.publish("ha/wind/speed", String(wind_speed));
-    delay(500);
-    client.publish("ha/wind/dir", String(wind_dir));
-    delay(500);
-    client.publish("ha/rain/total", String(rain));
-  }
+ 
   client.loop();
 
+  if (goTime) {
+    printWeather();
+    goTime = false;
+  }
 }
 
 //Calculates data from weather meter kit 
@@ -96,17 +103,18 @@ void calcWeather() {
   wind_speed = myweatherMeterKit.getWindSpeed();
   //Calc Rain
   rain = myweatherMeterKit.getTotalRainfall();
-}
-//Print the variables to serial
+} 
+
+//Print the weather variables to serial and report via MQTT
 void printWeather() {
   calcWeather();  //Go calc all the various sensors
 
   Serial.println();
-  Serial.print("wind direction= ");
-  Serial.print(wind_dir, 1);
-  Serial.print(" deg, wind speed= ");
-  Serial.print(wind_speed, 1);
-  Serial.print(" kph, total rain= ");
-  Serial.print(rain, 1);
-  Serial.println(" mm");
+  Serial.print("wind direction= ");    Serial.print(wind_dir, 1);
+  Serial.print(" deg, wind speed= ");  Serial.print(wind_speed, 1);
+  Serial.print(" kph, total rain= ");  Serial.print(rain, 1);       Serial.println(" mm");
+
+  client.publish("ha/wind/speed", String(wind_speed));  delay(500);
+  client.publish("ha/wind/dir", String(wind_dir));      delay(500);
+  client.publish("ha/rain/total", String(rain));
 }
