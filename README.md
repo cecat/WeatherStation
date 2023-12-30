@@ -41,10 +41,10 @@ I'm using a Home Assistant
 [MQTT integration](https://www.home-assistant.io/integrations/mqtt/). 
 The integration implements a broker and
 you use MQTT topics (in the code, the *ha/wind/speed*, *ha/wind/dir*, etc. 
-are topics) to match the payload of each topic to a variable you can use 
-or display in HA.  Each device has a separate client name (i.e., the device
+are topics) to match the payload of a MQTT message to a variable you can use 
+or display in HA.  Each device also has a unique client name (i.e., the device
 that is sending the data) so HA knows 
-where the measurement is coming from).
+where the measurement is coming from.
 
 HA integration is beyond the scope of this example but (using a different
 MQTT client for Particle.io devices) you can see code and more detailed
