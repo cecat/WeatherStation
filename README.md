@@ -20,7 +20,9 @@ The timer functions were nicely documented in a short tutorial in
 [Circuit Digest](https://circuitdigest.com/microcontroller-projects/esp32-timers-and-timer-interrupts).
 
 To use this code, note you need to create a secrets.h file in the
-same directory as the main code.
+same directory as the main code. There is a secrets-template.h that you can
+use to enter your secrets.
+
 The directory structure here has an extra layer below src because this is
 what the Arduino IDE expects, so it allows you to use that app for managing
 librarires, etc. 
