@@ -1,9 +1,11 @@
 /*
-  MQTT and WiFi functions here are adapted from the simple client example at EspMQTTClient by @plapointe6.
+  MQTT and WiFi functions here are adapted from the simple client
+  example at EspMQTTClient by @plapointe6.
   (https://github.com/plapointe6/EspMQTTClient/tree/master)
 
 
-  Weather Station functions are adapted from the SparkFun MM_WeatherMeter_Test example.
+  Weather Station functions are adapted from the SparkFun
+  MM_WeatherMeter_Test example.
   (https://github.com/sparkfun/MicroMod_Weather_Carrier_Board/tree/master)
 
   @cecat (12/29/23)
@@ -12,28 +14,36 @@
 
 #include "secrets.h"
 #include "EspMQTTClient.h"
-
 #include "SparkFun_Weather_Meter_Kit_Arduino_Library.h"  //http://librarymanager/All#SparkFun_Weather_Meter_Kit
+
 //Hardware pin definitions
 const byte WSPEED = 14;     //Digital I/O pin for wind speed
 const byte WDIR = 35;       //Analog pin for wind direction
 const byte RAIN = 27;       //Digital I/O pin for rain fall
+
 //Global Variables
 float wind_dir = 0;         // [degrees (Cardinal)]
 float wind_speed = 0;       // [kph]
 float rain = 0;             // [mm]
 bool goTime = false;        // did the timer fire?
-SFEWeatherMeterKit myweatherMeterKit(WDIR, WSPEED, RAIN);  // Create an instance of the weather meter kit
 
+// Create an instance of the weather meter kit
+SFEWeatherMeterKit myweatherMeterKit(WDIR, WSPEED, RAIN);  
 
+// Create a WiFi/MQTT client
 EspMQTTClient client(
   WIFI_SSID, WIFI_PWD,             // wifi ssid and password
   MQTT_BROKER, MQTT_USR, MQTT_PWD, // MQTT broker, username, password
   MQTT_CLIENT, 1883);		           // MQTT client name and port
 
-// interrupt timer to check and report weather data
-int weatherCheckFreq = 30000000; // interval to check and report (in microseconds)
+// Set an interrupt timer to check and report weather data
+// A nice tutorial on ESP32 timers:
+// https://circuitdigest.com/microcontroller-projects/esp32-timers-and-timer-interrupts
+
+int weatherCheckFreq = 30000000; // interval to check and report (in usecs)
 hw_timer_t *Wc_timer = NULL;
+
+// interrupt handler
 void IRAM_ATTR onNudge() {
   goTime = true;
 }
@@ -42,6 +52,7 @@ void setup()
 {
   Serial.begin(115200);
   delay(100);
+
   // Optional functionalities of EspMQTTClient
   client.enableDebuggingMessages(); // Enable debugging messages sent to serial output
   //client.enableHTTPWebUpdater(); // Enable the web updater. User and password default to values of MQTTUsername and MQTTPassword. These can be overridded with enableHTTPWebUpdater("user", "password").
@@ -49,8 +60,7 @@ void setup()
   //client.enableLastWillMessage("TestClient/lastwill", "I am going offline");  // You can activate the retain flag by setting the third parameter to true
 
   // set up interrupt timer
-  // for details on ESP32 timers see https://circuitdigest.com/microcontroller-projects/esp32-timers-and-timer-interrupts
-  Wc_timer = timerBegin(0, 80, true);   // set up the timer to count up in microsecs (80MHz cpu / 80 prescaler)
+  Wc_timer = timerBegin(0, 80, true);   // set timer to count in microsecs 
   timerAttachInterrupt(Wc_timer, &onNudge, true); 
   timerAlarmWrite(Wc_timer, weatherCheckFreq, true);
   timerAlarmEnable(Wc_timer);
@@ -110,9 +120,13 @@ void printWeather() {
   calcWeather();  //Go calc all the various sensors
 
   Serial.println();
-  Serial.print("wind direction= ");    Serial.print(wind_dir, 1);
-  Serial.print(" deg, wind speed= ");  Serial.print(wind_speed, 1);
-  Serial.print(" kph, total rain= ");  Serial.print(rain, 1);       Serial.println(" mm");
+  Serial.print("wind direction= ");
+  Serial.print(wind_dir, 1);
+  Serial.print(" deg, wind speed= ");
+  Serial.print(wind_speed, 1);
+  Serial.print(" kph, total rain= ");
+  Serial.print(rain, 1);
+  Serial.println(" mm");
 
   client.publish("ha/wind/speed", String(wind_speed));  delay(500);
   client.publish("ha/wind/dir", String(wind_dir));      delay(500);
