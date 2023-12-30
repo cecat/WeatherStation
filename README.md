@@ -46,7 +46,9 @@ or display in HA.  Each device also has a unique client name (i.e., the device
 that is sending the data) so HA knows 
 where the measurement is coming from.
 
-HA integration is beyond the scope of this example but (using a different
-MQTT client for Particle.io devices) you can see code and more detailed
-instructions in my 
-[UtilityWatchMQTT](https://github.com/cecat/UtilityWatchMQTT) repo..
+HA integration is beyond the scope of this example but
+you can see code and more detailed instructions in my 
+[UtilityWatchMQTT](https://github.com/cecat/UtilityWatchMQTT) repo.
+The code there is using a different MQTT client for Particle.io devices,
+but there are some instructions on how to work the HA side of things that
+does not care about what client library you are using.
