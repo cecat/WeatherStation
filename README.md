@@ -40,7 +40,7 @@ in addition to the EspMQTTClient library (see the #includes in the code).
 I'm using a Home Assistant
 [MQTT integration](https://www.home-assistant.io/integrations/mqtt/). 
 The integration implements a broker and
-you use MQTT topics (in the code, the *ha/wind/speed*, *ha/wind/dir", etc. 
+you use MQTT topics (in the code, the *ha/wind/speed*, *ha/wind/dir*, etc. 
 are topics) to match the payload of each topic to a variable you can use 
 or display in HA.  Each device has a separate client name (i.e., the device
 that is sending the data) so HA knows 
