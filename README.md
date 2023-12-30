@@ -55,4 +55,5 @@ does not care about what client library you are using.
 
 For more general information on Home Assistant and how (and why)
 I use it, see 
+**A Primer on Home Assistant** in
 [this blog](https://blog.deepblueberry.com/).
