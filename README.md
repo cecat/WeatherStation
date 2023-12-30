@@ -52,3 +52,7 @@ you can see code and more detailed instructions in my
 The code there is using a different MQTT client for Particle.io devices,
 but there are some instructions on how to work the HA side of things that
 does not care about what client library you are using.
+
+For more general information on Home Assistant and how (and why)
+I use it, see 
+[this blog](https://blog.deepblueberry.com/).
