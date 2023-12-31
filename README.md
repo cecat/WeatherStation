@@ -39,13 +39,16 @@ these into a separate file, *secrets.h*, placing this in the same
 directory as the main code. There is a secrets-template.h for
 each version of the code that you can use to enter your secrets.
 
-The directory structure here has an extra layer below src because this is
-what the Arduino IDE expects, so it allows you to use that app for managing
-librarires, etc. 
+For testing, you can see the message traffic for the
+AdaFruit version at io.adafruit.com
+which (when you log in) will give you a nice dashboard.  For the
+HA version you can go to Integrations->MQTT and select "configure,"
+where you can listen for specific topic streams.
 
 From the Arduino IDE app you will need to use the library manager to
 install the libraries for the weather station and each of its sensors,
-in addition to the EspMQTTClient library (see the #includes in the code).
+in addition to the EspMQTTClient or AdaFruit_MQTT_Library libraries
+(see the #includes in the code).
 
 ## About Home Assistant and the Broker used here...
 I'm using a Home Assistant
