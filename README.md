@@ -9,24 +9,35 @@ and
 
 ## Dependencies
 
-The code here uses MQTT/WiFi to communicate with 
-[Home Assistant](https://www.home-assistant.io/).
+There are two sketches here. One uses MQTT/WiFi to communicate with 
+[Home Assistant](https://www.home-assistant.io/). The other uses the
+AdaFruit MQTT library that commuincates with the MQTT broker
+service at adafruit.io.
 
-This code borrows heavily from the WiFi/MQTT library
+The Home Assistant version of the code borrows heavily from the
+WiFi/MQTT library
 [EspMQTTClient](https://github.com/plapointe6/EspMQTTClient)
-by @plapointe6
-and the SparkFun Weather Station Carrier Board 
+by @plapointe6.
+The AdaFruit version takes code from the adafruitio_secure_esp32
+example code in the
+[AdaFruit_MQTT_Library](https://github.com/adafruit/Adafruit_MQTT_Library).
+
+Both sketches use code from the *SparkFun Weather Station Carrier Board* 
 [example codes](https://github.com/sparkfun/MicroMod_Weather_Carrier_Board/). 
 The timer functions were nicely documented in a short tutorial in
 [Circuit Digest](https://circuitdigest.com/microcontroller-projects/esp32-timers-and-timer-interrupts).
 
 ## To use this code
 
+There are two versions of this code. One is using the EspMQTTClient to 
+connect with Home Assistant; the other is using the AdaFruit MQTT 
+library to connect with AdaFruit's MQTT service (adafruit.io).
+
 You can plug in your local specifics for WiFi and MQTT access if you
 don't intend to share your code.  But it's better preactice to put
 these into a separate file, *secrets.h*, placing this in the same
-directory as the main code. There is a secrets-template.h that you can
-use to enter your secrets.
+directory as the main code. There is a secrets-template.h for
+each version of the code that you can use to enter your secrets.
 
 The directory structure here has an extra layer below src because this is
 what the Arduino IDE expects, so it allows you to use that app for managing
