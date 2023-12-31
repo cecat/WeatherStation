@@ -12,7 +12,7 @@ and
 There are two sketches here. One uses MQTT/WiFi to communicate with 
 [Home Assistant](https://www.home-assistant.io/). The other uses the
 AdaFruit MQTT library that commuincates with the MQTT broker
-service at adafruit.io.
+service at [io.adafruit.com](https://io.adafruit.com/).
 
 The Home Assistant version of the code borrows heavily from the
 WiFi/MQTT library
@@ -31,7 +31,7 @@ The timer functions were nicely documented in a short tutorial in
 
 There are two versions of this code. One is using the EspMQTTClient to 
 connect with Home Assistant; the other is using the AdaFruit MQTT 
-library to connect with AdaFruit's MQTT service (adafruit.io).
+library to connect with AdaFruit's MQTT service (io.adafruit.com).
 
 You can plug in your local specifics for WiFi and MQTT access if you
 don't intend to share your code.  But it's better preactice to put
