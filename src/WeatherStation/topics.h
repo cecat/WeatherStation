@@ -19,7 +19,13 @@ const byte RAIN = 27;       //Digital I/O pin for rain fall
     These fields allow us to construct the mqtt topic (to sub/pub)
     and also to loop through the sensors using the proper code for
     sampling (via sensorIndex) and grabbing the sensor's latest reading
-    (sensorReading)l
+    (sensorReading).
+
+    sensorIndex is probably thinking too generally in that there might be
+    more than one sensor that uses the same method for reading the value
+    (perhaps if you had some simple analogRead sensors). I am still
+    tempted to drop this field and just use the index in the switch
+    statement...
  */
 struct SensorConfig {
     int sensorIndex;      // arbitrary indexing to determine how to read;
