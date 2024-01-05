@@ -15,17 +15,6 @@ const byte WSPEED = 14;     //Digital I/O pin for wind speed
 const byte WDIR = 35;       //Analog pin for wind direction
 const byte RAIN = 27;       //Digital I/O pin for rain fall
 
-//Sensor Observation Variables 
-// Each sensor observation requires this
-// and these should match the sensorVar name in sensorArray below.
-float wind_dir = 0;         // [degrees (Cardinal)]
-float wind_speed = 0;       // [kph]
-float rain = 0;             // [mm]
-// The soil moisture sensor requires calibration to translate into any
-// common metric such as (%) VWC (Volumetric Water Content). This sensor 
-// measures resistence, thus lower = more moist
-int   soilInt = 0;             // 
-
 /*
     These fields allow us to construct the mqtt topic (to sub/pub)
     and also to loop through the sensors using the proper code for
