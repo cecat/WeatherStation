@@ -9,23 +9,14 @@
   (https://github.com/sparkfun/MicroMod_Weather_Carrier_Board/tree/master)
 
   @cecat (12/29/23)
+  @cecat major overhaul implementing sensorArray (1/5/24)
   
 */
 
 #include "secrets.h"
 #include "EspMQTTClient.h"
-#include "SparkFun_Weather_Meter_Kit_Arduino_Library.h"  //http://librarymanager/All#SparkFun_Weather_Meter_Kit
-
-//Hardware pin definitions
-const byte WSPEED = 14;     //Digital I/O pin for wind speed
-const byte WDIR = 35;       //Analog pin for wind direction
-const byte RAIN = 27;       //Digital I/O pin for rain fall
-
-//Global Variables
-float wind_dir = 0;         // [degrees (Cardinal)]
-float wind_speed = 0;       // [kph]
-float rain = 0;             // [mm]
-bool goTime = false;        // did the timer fire?
+#include "SparkFun_Weather_Meter_Kit_Arduino_Library.h"  //http://librarymanager/All#SparkFun_Weather_Meter_Kit 
+#include "topics.h"
 
 // Create an instance of the weather meter kit
 SFEWeatherMeterKit myweatherMeterKit(WDIR, WSPEED, RAIN);  
@@ -37,19 +28,18 @@ EspMQTTClient client(
   MQTT_CLIENT, 1883);		           // MQTT client name and port
 
 // Set an interrupt timer to check and report weather data
-// A nice tutorial on ESP32 timers:
-// https://circuitdigest.com/microcontroller-projects/esp32-timers-and-timer-interrupts
-
-int weatherCheckFreq = 30000000; // interval to check and report (in usecs)
+bool goTime = false;                // set to true when timer fires; false after timer is serviced
+int weatherCheckFreq = 30000000;    // interval to check and report (in microseconds)
 hw_timer_t *Wc_timer = NULL;
 
 // interrupt handler
 void IRAM_ATTR onNudge() {
-  goTime = true;
+  goTime = true;                    // minimal footprint here while we have everyone's attention
 }
 
 void setup()
 {
+
   Serial.begin(115200);
   delay(100);
 
@@ -72,63 +62,60 @@ void setup()
 }
 
 // This function is called once everything is connected (Wifi and MQTT)
-// WARNING : YOU MUST IMPLEMENT IT IF YOU USE EspMQTTClient
 void onConnectionEstablished()
 {
-  
-  // Subscribe to "ha/wind/speed" and display received message to Serial
-  client.subscribe("ha/wind/speed", [](const String & payload) {
-    Serial.println(payload);
-  });
-    // Subscribe to "ha/wind/dir" and display received message to Serial
-  client.subscribe("ha/wind/dir", [](const String & payload) {
-    Serial.println(payload);
-  });
-    // Subscribe to "ha/rain/total" and display received message to Serial
-  client.subscribe("ha/rain/total", [](const String & payload) {
-    Serial.println(payload);
-  });
+  // Set up and subscribe to topics for each sensor
 
+  for (int i = 0; i < sizeof(sensorArray)/sizeof(sensorArray[0]); i++) {
+        // Construct the MQTT topic for the current sensor
+        String mqttTopic = String(DEVICE_ID) + "/" + sensorArray[i].sensorName + "/" + sensorArray[i].sensorVar;
+        // Subscribe 
+        client.subscribe(mqttTopic.c_str(), [](const String & payload) {
+            Serial.println(payload);
+        });
+    }
 }
 
 // all the action happens when the interrupt timer (Wc_timer) fires.
-
 void loop()
 {
  
   client.loop();
 
   if (goTime) {
-    printWeather();
+    //printWeather();
+    readSensors();
+    publishSensorData();
     goTime = false;
   }
+
 }
 
-//Calculates data from weather meter kit 
-void calcWeather() {
+void readSensors() {
+    
+    for (int i = 0; i < sizeof(sensorArray) / sizeof(sensorArray[0]); i++) {
+      switch (sensorArray[i].sensorIndex){ 
+        case 0:  
+          sensorArray[i].sensorReading = myweatherMeterKit.getTotalRainfall();
+          break;
+        case 1:
+          sensorArray[i].sensorReading = myweatherMeterKit.getWindDirection();
+          break;
+        case 2:
+          sensorArray[i].sensorReading = myweatherMeterKit.getWindSpeed();
+          break;
+        case 3: // will mod the line below when I hook up the soil moisture sensor and it's prolly just an analogRead
+          // sensorArray[i].sensorReading = static_cast<float>(readSoilMoistureSensor()); // Read int; convert to float
+          break;
+      }
+    } 
+}
 
-  //Weather Meter Kit
-  //Calc Wind
-  wind_dir = myweatherMeterKit.getWindDirection();
-  wind_speed = myweatherMeterKit.getWindSpeed();
-  //Calc Rain
-  rain = myweatherMeterKit.getTotalRainfall();
-} 
+void publishSensorData() {
+    for (int i = 0; i < sizeof(sensorArray) / sizeof(sensorArray[0]); i++) {
+        String topic = String(DEVICE_ID) + "/" + sensorArray[i].sensorName + "/" + sensorArray[i].sensorVar;
+        String payload = String(sensorArray[i].sensorReading, 2); // Convert float reading to String
 
-//Print the weather variables to serial and report via MQTT
-void printWeather() {
-  calcWeather();  //Go calc all the various sensors
-
-  Serial.println();
-  Serial.print("wind direction= ");
-  Serial.print(wind_dir, 1);
-  Serial.print(" deg, wind speed= ");
-  Serial.print(wind_speed, 1);
-  Serial.print(" kph, total rain= ");
-  Serial.print(rain, 1);
-  Serial.println(" mm");
-
-  client.publish("ha/wind/speed", String(wind_speed));  delay(500);
-  client.publish("ha/wind/dir", String(wind_dir));      delay(500);
-  client.publish("ha/rain/total", String(rain));
+        client.publish(topic.c_str(), payload.c_str());
+    }
 }
