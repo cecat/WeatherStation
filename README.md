@@ -29,23 +29,22 @@ The timer functions were nicely documented in a short tutorial in
 
 ## To use this code
 
-There are two versions of this code. One is using the EspMQTTClient to 
-connect with Home Assistant; the other is using the AdaFruit MQTT 
-library to connect with AdaFruit's MQTT service (io.adafruit.com).
+In the src directory is a WeatherStation implementation that works with
+Home Assistant and a WeatherStationAdaFruit that
+works with AdaFruit's MQTT service (io.adafruit.com).
 
-You can plug in your local specifics for WiFi and MQTT access if you
-don't intend to share your code.  But it's better preactice to put
-these into a separate file, *secrets.h*, placing this in the same
-directory as the main code. There is a secrets-template.h for
-each version of the code that you can use to enter your secrets.
+Use the secrets-template.h files to create your secrets.h file,
+plugging in your local specifics for WiFi and MQTT access
+There is a secrets-template.h for
+each version of the code as the MQTT specifics are different.
 
 For testing, you can see the message traffic for the
 AdaFruit version at io.adafruit.com
-which (when you log in) will give you a nice dashboard.  For the
+which (when you log in) will give you a dashboard.  For the
 HA version you can go to Integrations->MQTT and select "configure,"
 where you can listen for specific topic streams.
 
-From the Arduino IDE app you will need to use the library manager to
+From the Arduino IDE app you will use the library manager to
 install the libraries for the weather station and each of its sensors,
 in addition to the EspMQTTClient or AdaFruit_MQTT_Library libraries
 (see the #includes in the code).
