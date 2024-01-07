@@ -1,126 +1,64 @@
 /*
-  MQTT and WiFi functions here are adapted from the Adafruit MQTT Library.
-  (https://github.com/adafruit/Adafruit_MQTT_Library)
+  MQTT and WiFi functions here are adapted from the simple client
+  example at EspMQTTClient by @plapointe6.
+  (https://github.com/plapointe6/EspMQTTClient/tree/master)
+
 
   Weather Station functions are adapted from the SparkFun
   MM_WeatherMeter_Test example.
   (https://github.com/sparkfun/MicroMod_Weather_Carrier_Board/tree/master)
 
   @cecat (12/29/23)
+
+  @cecat (1/7/23)
+	this is a complete overhaul implementing sensorArray with a 
+	struct schema for each sensor.  For this version I have not
+	figured out a clever way to embed the AdaFruit feed names
+	into the struct or vice versa (spec them in the struct
+	then config the feeds.  I have an idea to try out but for
+	now wanted to get this version out so that at least we
+	have something that works to get folks up and running.
   
 */
 
 #include "secrets.h"
-#include "SparkFun_Weather_Meter_Kit_Arduino_Library.h"  //http://librarymanager/All#SparkFun_Weather_Meter_Kit
 // for MQTT/WiFi Adafruit libraries
 #include <WiFi.h>
 #include "WiFiClientSecure.h"
 #include "Adafruit_MQTT.h"
 #include "ADafruit_MQTT_Client.h"
-
-//Hardware pin definitions
-const byte WSPEED = 14;     //Digital I/O pin for wind speed
-const byte WDIR = 35;       //Analog pin for wind direction
-const byte RAIN = 27;       //Digital I/O pin for rain fall
-
-//Global Variables
-float wind_dir = 0;         // [degrees (Cardinal)]
-float wind_speed = 0;       // [kph]
-float rain = 0;             // [mm]
-bool goTime = false;        // did the timer fire?
+#include "SparkFun_Weather_Meter_Kit_Arduino_Library.h"  //http://librarymanager/All#SparkFun_Weather_Meter_Kit 
+#include "topics.h"
 
 // Create an instance of the weather meter kit
 SFEWeatherMeterKit myweatherMeterKit(WDIR, WSPEED, RAIN);  
 
-// Create a WiFi/MQTT client
-// WiFi credentials
-// ******* WLAN_SSID and WLAN_PASS are #defined in secrets.h
-
-// MQTT AdaFruit server
-#define AIO_SERVER "io.adafruit.com"
-#define AIO_SERVERPORT 8883
-
-// AdaFruit credentials
-// Adafruit IO Account Configuration
-// (to obtain these values, visit https://io.adafruit.com and click on Active Key)
-//  AIO_USERNAME and AIO_KEY #defined in secrets.h
-
-
-/************ Global State (you don't need to change this!) ******************/
-
-// WiFiFlientSecure for SSL/TLS support
-WiFiClientSecure client;
-
-// Setup the MQTT client class by passing in the WiFi client and MQTT server and login details.
-Adafruit_MQTT_Client mqtt(&client, AIO_SERVER, AIO_SERVERPORT, AIO_USERNAME, AIO_KEY);
-
-// io.adafruit.com root CA
-const char* adafruitio_root_ca = \
-      "-----BEGIN CERTIFICATE-----\n"
-      "MIIEjTCCA3WgAwIBAgIQDQd4KhM/xvmlcpbhMf/ReTANBgkqhkiG9w0BAQsFADBh\n"
-      "MQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3\n"
-      "d3cuZGlnaWNlcnQuY29tMSAwHgYDVQQDExdEaWdpQ2VydCBHbG9iYWwgUm9vdCBH\n"
-      "MjAeFw0xNzExMDIxMjIzMzdaFw0yNzExMDIxMjIzMzdaMGAxCzAJBgNVBAYTAlVT\n"
-      "MRUwEwYDVQQKEwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5j\n"
-      "b20xHzAdBgNVBAMTFkdlb1RydXN0IFRMUyBSU0EgQ0EgRzEwggEiMA0GCSqGSIb3\n"
-      "DQEBAQUAA4IBDwAwggEKAoIBAQC+F+jsvikKy/65LWEx/TMkCDIuWegh1Ngwvm4Q\n"
-      "yISgP7oU5d79eoySG3vOhC3w/3jEMuipoH1fBtp7m0tTpsYbAhch4XA7rfuD6whU\n"
-      "gajeErLVxoiWMPkC/DnUvbgi74BJmdBiuGHQSd7LwsuXpTEGG9fYXcbTVN5SATYq\n"
-      "DfbexbYxTMwVJWoVb6lrBEgM3gBBqiiAiy800xu1Nq07JdCIQkBsNpFtZbIZhsDS\n"
-      "fzlGWP4wEmBQ3O67c+ZXkFr2DcrXBEtHam80Gp2SNhou2U5U7UesDL/xgLK6/0d7\n"
-      "6TnEVMSUVJkZ8VeZr+IUIlvoLrtjLbqugb0T3OYXW+CQU0kBAgMBAAGjggFAMIIB\n"
-      "PDAdBgNVHQ4EFgQUlE/UXYvkpOKmgP792PkA76O+AlcwHwYDVR0jBBgwFoAUTiJU\n"
-      "IBiV5uNu5g/6+rkS7QYXjzkwDgYDVR0PAQH/BAQDAgGGMB0GA1UdJQQWMBQGCCsG\n"
-      "AQUFBwMBBggrBgEFBQcDAjASBgNVHRMBAf8ECDAGAQH/AgEAMDQGCCsGAQUFBwEB\n"
-      "BCgwJjAkBggrBgEFBQcwAYYYaHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEIGA1Ud\n"
-      "HwQ7MDkwN6A1oDOGMWh0dHA6Ly9jcmwzLmRpZ2ljZXJ0LmNvbS9EaWdpQ2VydEds\n"
-      "b2JhbFJvb3RHMi5jcmwwPQYDVR0gBDYwNDAyBgRVHSAAMCowKAYIKwYBBQUHAgEW\n"
-      "HGh0dHBzOi8vd3d3LmRpZ2ljZXJ0LmNvbS9DUFMwDQYJKoZIhvcNAQELBQADggEB\n"
-      "AIIcBDqC6cWpyGUSXAjjAcYwsK4iiGF7KweG97i1RJz1kwZhRoo6orU1JtBYnjzB\n"
-      "c4+/sXmnHJk3mlPyL1xuIAt9sMeC7+vreRIF5wFBC0MCN5sbHwhNN1JzKbifNeP5\n"
-      "ozpZdQFmkCo+neBiKR6HqIA+LMTMCMMuv2khGGuPHmtDze4GmEGZtYLyF8EQpa5Y\n"
-      "jPuV6k2Cr/N3XxFpT3hRpt/3usU/Zb9wfKPtWpoznZ4/44c1p9rzFcZYrWkj3A+7\n"
-      "TNBJE0GmP2fhXhP1D/XVfIW/h0yCJGEiV9Glm/uGOa3DXHlmbAcxSyCRraG+ZBkA\n"
-      "7h4SeM6Y8l/7MBRpPCz6l8Y=\n"
-      "-----END CERTIFICATE-----\n";
-
-/****************************** Feeds ***************************************/
-
-// Setup a feed called 'test' for publishing.
-// Notice MQTT paths for AIO follow the form: <username>/feeds/<feedname>
-Adafruit_MQTT_Publish test = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/test");
-
 
 // Set an interrupt timer to check and report weather data
-// A nice tutorial on ESP32 timers:
-// https://circuitdigest.com/microcontroller-projects/esp32-timers-and-timer-interrupts
-
-int weatherCheckFreq = 30000000; // interval to check and report (in usecs)
+bool goTime = false;                // set to true when timer fires; false after timer is serviced
+int weatherCheckFreq = 30000000;    // interval to check and report (in microseconds)
 hw_timer_t *Wc_timer = NULL;
 
 // interrupt handler
 void IRAM_ATTR onNudge() {
-  goTime = true;
+  goTime = true;                    // minimal footprint here while we have everyone's attention
 }
 
 void setup()
 {
+
   Serial.begin(115200);
   delay(100);
 
   //initialize Wifi and MQTT
-
   Serial.println(F("Adafruit IO MQTTS (SSL/TLS) Example"));
-
   // Connect to WiFi access point.
   Serial.println(); Serial.println();
   Serial.print("Connecting to ");
   Serial.println(WLAN_SSID);
-
-  delay(1000);
-
+  delay(500);
   WiFi.begin(WLAN_SSID, WLAN_PASS);
-  delay(2000);
+  delay(1000);
 
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
@@ -146,57 +84,85 @@ void setup()
 
 }
 
-
-uint32_t x=0;
+// This function is called once everything is connected (Wifi and MQTT)
+void onConnectionEstablished()
+{
+  Serial.println("connection good to go"); // this was where we originally were going to put the feed setup...moved to setup()
+  
+}
 
 // all the action happens when the interrupt timer (Wc_timer) fires.
-
 void loop()
 {
- 
+
   MQTT_connect();
 
   if (goTime) {
-    printWeather();
+    //printWeather();
+    readSensors();
+    publishSensorData();
     goTime = false;
   }
+
 }
 
-//Calculates data from weather meter kit 
-void calcWeather() {
-
-  //Weather Meter Kit
-  //Calc Wind
-  wind_dir = myweatherMeterKit.getWindDirection();
-  wind_speed = myweatherMeterKit.getWindSpeed();
-  //Calc Rain
-  rain = myweatherMeterKit.getTotalRainfall();
-} 
-
-//Print the weather variables to serial and report via MQTT
-void printWeather() {
-  calcWeather();  //Go calc all the various sensors
-
-  Serial.println();
-  Serial.print("wind direction= ");
-  Serial.print(wind_dir, 1);
-  Serial.print(" deg, wind speed= ");
-  Serial.print(wind_speed, 1);
-  Serial.print(" kph, total rain= ");
-  Serial.print(rain, 1);
-  Serial.println(" mm");
-
-  Serial.print(F(" to test feed..."));
-    if (! test.publish(x++)) {
-      Serial.println(F("Failed"));
-    } else {
-      Serial.println(F("OK!"));
-  }
-  //client.publish("ha/wind/speed", String(wind_speed));  delay(500);
-  //client.publish("ha/wind/dir", String(wind_dir));      delay(500);
-  //client.publish("ha/rain/total", String(rain));
+void readSensors() {
+    
+    for (int i = 0; i < sizeof(sensorArray) / sizeof(sensorArray[0]); i++) {
+      switch (sensorArray[i].sensorIndex){ 
+        case 0:  
+          sensorArray[i].sensorReading = myweatherMeterKit.getTotalRainfall();
+          break;
+        case 1:
+          sensorArray[i].sensorReading = myweatherMeterKit.getWindDirection();
+          break;
+        case 2:
+          sensorArray[i].sensorReading = myweatherMeterKit.getWindSpeed();
+          break;
+        case 3: // will mod the line below when I hook up the soil moisture sensor and it's prolly just an analogRead
+          // sensorArray[i].sensorReading = static_cast<float>(readSoilMoistureSensor()); // Read int; convert to float
+          break;
+      }
+    } 
 }
 
+void publishSensorData() {
+
+    for (int i = 0; i < sizeof(sensorArray) / sizeof(sensorArray[0]); i++) {
+        String topic = String(DEVICE_ID) + "/" + sensorArray[i].sensorName + "/" + sensorArray[i].sensorVar;
+        String payload = String(sensorArray[i].sensorReading, 2); // Convert float reading to String
+        switch (sensorArray[i].sensorIndex) {
+          case 0:
+            if (rainFeed.publish(payload.c_str())) {
+              Serial.println(sensorArray[i].sensorVar);
+              } else {  Serial.println("err"); }
+            break;
+          case 1:
+            if (wind_dirFeed.publish(payload.c_str())) {
+              Serial.println(sensorArray[i].sensorVar);
+              } else {  Serial.println("err"); }
+            break;
+          case 2:
+            if (wind_speedFeed.publish(payload.c_str())) {
+              Serial.println(sensorArray[i].sensorVar);
+              } else {  Serial.println("err"); }
+           break;
+           /*
+          case 3:
+            if (soilFeed.publish(payload.c_str())) {
+              Serial.println("ok");
+              } else {  Serial.println("err"); }
+            break; 
+            */
+        }
+    }
+}
+/*  Adafruit_MQTT_Publish rainFeed = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/rain");
+    Adafruit_MQTT_Publish wind_dirFeed = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/wind_dir");
+    Adafruit_MQTT_Publish wind_speedFeed = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/wind_speed");
+    Adafruit_MQTT_Publish soilFeed = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/soil");
+*/
+/* MQTT code for AdaFruit */
 // Function to connect and reconnect as necessary to the MQTT server.
 // Should be called in the loop function and it will take care if connecting.
 void MQTT_connect() {
