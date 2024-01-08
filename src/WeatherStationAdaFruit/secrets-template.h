@@ -1,21 +1,22 @@
-// secrets.h
+// secrets.h template - you must create a secrets.h from this template
+// unless you prefer to keep your code local and unpublished, in which
+// case you can live dangerously and just put these four #defines
+// into your copy of WeatherStationAdaFruit.ino or topics.h,
+// then remove the #include "secrets.h" line in WeatherStationAdaFruit.ino.
+// (but you really should use secrets.h)
 
 // wifi
 #define WLAN_SSID     "your-wifi-ssid"
 #define WLAN_PASS     "your-wifi-password""
 
-// HA MQTT
 // Adafruit IO Account Configuration. To obtain these values, visit
 // https://io.adafruit.com and click on the yellow key icon upper
-// right, just left of the "New Device" icon.  It appears that for
-// Adafruit rather than a client_ID you register devices to get a unique
-// key for the device.
+// right, just left of the "New Device" icon.  
 
-// If you create your own account you'll want to keep your credentials
-// here, deleting the duplicate lines from topics.h.  But for this
-// test code the values below are set in the topics.h file
-// so the lines below are commented out.
+// These values come from your io.adafruit.com account. In
+// the lines below substitute your username and key within the
+// double quotes.
 
-//#define AIO_USERNAME  "your-{adafruit.io}-username""
-//#define AIO_KEY       "your-{adafruit.io}-key""
+#define AIO_USERNAME  "your-{adafruit.io}-username""
+#define AIO_KEY       "your-{adafruit.io}-key""
 
