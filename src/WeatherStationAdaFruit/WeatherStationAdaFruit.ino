@@ -3,7 +3,6 @@
   example at EspMQTTClient by @plapointe6.
   (https://github.com/plapointe6/EspMQTTClient/tree/master)
 
-
   Weather Station functions are adapted from the SparkFun
   MM_WeatherMeter_Test example.
   (https://github.com/sparkfun/MicroMod_Weather_Carrier_Board/tree/master)
@@ -18,6 +17,9 @@
 	then config the feeds.  I have an idea to try out but for
 	now wanted to get this version out so that at least we
 	have something that works to get folks up and running.
+
+  @cecat (1/8/23)
+  removed a bunch of commented-out code and clarified many comments
   
 */
 
@@ -32,7 +34,6 @@
 
 // Create an instance of the weather meter kit
 SFEWeatherMeterKit myweatherMeterKit(WDIR, WSPEED, RAIN);  
-
 
 // Set an interrupt timer to check and report weather data
 bool goTime = false;                // set to true when timer fires; false after timer is serviced
@@ -84,13 +85,6 @@ void setup()
 
 }
 
-// This function is called once everything is connected (Wifi and MQTT)
-void onConnectionEstablished()
-{
-  Serial.println("connection good to go"); // this was where we originally were going to put the feed setup...moved to setup()
-  
-}
-
 // all the action happens when the interrupt timer (Wc_timer) fires.
 void loop()
 {
@@ -98,7 +92,6 @@ void loop()
   MQTT_connect();
 
   if (goTime) {
-    //printWeather();
     readSensors();
     publishSensorData();
     goTime = false;
@@ -106,6 +99,9 @@ void loop()
 
 }
 
+/* CeC: This is not very efficient but assumes each individual
+        sensor has a unique code for sampling...
+ */
 void readSensors() {
     
     for (int i = 0; i < sizeof(sensorArray) / sizeof(sensorArray[0]); i++) {
@@ -119,17 +115,20 @@ void readSensors() {
         case 2:
           sensorArray[i].sensorReading = myweatherMeterKit.getWindSpeed();
           break;
-        case 3: // will mod the line below when I hook up the soil moisture sensor and it's prolly just an analogRead
+        case 3: // will mod the line below when I hook up the sensor and it's prolly just an analogRead
           // sensorArray[i].sensorReading = static_cast<float>(readSoilMoistureSensor()); // Read int; convert to float
           break;
       }
     } 
-}
+} 
 
+/* CeC: I don't like the inefficiency here but have not figured out how to get the feedname
+        into the sensorConfig struct without jumping through hoops that risk memory mgmt
+        issues with the Arduino/ESP runtime
+ */
 void publishSensorData() {
 
     for (int i = 0; i < sizeof(sensorArray) / sizeof(sensorArray[0]); i++) {
-        String topic = String(DEVICE_ID) + "/" + sensorArray[i].sensorName + "/" + sensorArray[i].sensorVar;
         String payload = String(sensorArray[i].sensorReading, 2); // Convert float reading to String
         switch (sensorArray[i].sensorIndex) {
           case 0:
@@ -157,14 +156,12 @@ void publishSensorData() {
         }
     }
 }
-/*  Adafruit_MQTT_Publish rainFeed = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/rain");
-    Adafruit_MQTT_Publish wind_dirFeed = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/wind_dir");
-    Adafruit_MQTT_Publish wind_speedFeed = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/wind_speed");
-    Adafruit_MQTT_Publish soilFeed = Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/soil");
-*/
+
 /* MQTT code for AdaFruit */
 // Function to connect and reconnect as necessary to the MQTT server.
 // Should be called in the loop function and it will take care if connecting.
+// CeC: "die (after three tries) and wait for WDT to reset me" 
+//       seems dangerous, but ¯\_(ツ)_/¯
 void MQTT_connect() {
   int8_t ret;
 
