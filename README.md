@@ -14,15 +14,15 @@ There are two sketches here. One uses MQTT/WiFi to communicate with
 AdaFruit MQTT library that commuincates with the MQTT broker
 service at [io.adafruit.com](https://io.adafruit.com/).
 
-The Home Assistant version of the code borrows heavily from the
+The Home Assistant version of the code borrows from the
 WiFi/MQTT library
 [EspMQTTClient](https://github.com/plapointe6/EspMQTTClient)
 by @plapointe6.
-The AdaFruit version takes code from the adafruitio_secure_esp32
+The AdaFruit version borrows from the adafruitio_secure_esp32
 example code in the
 [AdaFruit_MQTT_Library](https://github.com/adafruit/Adafruit_MQTT_Library).
 
-Both sketches use code from the *SparkFun Weather Station Carrier Board* 
+Both sketches also borrow from the *SparkFun Weather Station Carrier Board* 
 [example codes](https://github.com/sparkfun/MicroMod_Weather_Carrier_Board/). 
 The timer functions were nicely documented in a short tutorial in
 [Circuit Digest](https://circuitdigest.com/microcontroller-projects/esp32-timers-and-timer-interrupts).
@@ -65,6 +65,13 @@ you can see code and more detailed instructions in my
 The code there is using a different MQTT client for Particle.io devices,
 but there are some instructions on how to work the HA side of things that
 does not care about what client library you are using.
+
+## Comments
+I'm not super happy with these implementations which require
+hand-coding the mqtt topics for each sensor, but could not
+find a way to dynamically build those given the limitations to
+the Arduino/ESP implementations of C++. Would love it if
+someone figured that out.
 
 For more general information on Home Assistant and how (and why)
 I use it, see 
