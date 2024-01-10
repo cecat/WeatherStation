@@ -36,8 +36,7 @@ void IRAM_ATTR onNudge() {
   goTime = true;                    // minimal footprint here while we have everyone's attention
 }
 
-void setup()
-{
+void setup()  {
 
   Serial.begin(115200);
   delay(100);
@@ -61,11 +60,9 @@ void setup()
 }
 
 // This function is called once everything is connected (Wifi and MQTT)
+// This is where we build and subscribe to mqtt topics, unique to each sensor
 
 void onConnectionEstablished() {
-
-  // Set up and subscribe to topics for each sensor
-
   for (int i = 0; i < sizeof(sensorArray)/sizeof(sensorArray[0]); i++) {
       // Construct the MQTT topic for the current sensor
       String mqttTopic = String(DEVICE_ID) + "/" + sensorArray[i].sensorName + "/" + sensorArray[i].sensorVar;
@@ -80,7 +77,6 @@ void onConnectionEstablished() {
 
 void loop()
 {
- 
   client.loop();
 
   if (goTime) {
@@ -88,11 +84,9 @@ void loop()
     publishSensorData();
     goTime = false;
   }
-
 }
 
 void readSensors() {
-    
   for (int i = 0; i < sizeof(sensorArray) / sizeof(sensorArray[0]); i++) {
     switch (sensorArray[i].sensorIndex){ 
       case 0:  
@@ -112,11 +106,9 @@ void readSensors() {
 }
 
 void publishSensorData() {
-
     for (int i = 0; i < sizeof(sensorArray) / sizeof(sensorArray[0]); i++) {
         String topic = String(DEVICE_ID) + "/" + sensorArray[i].sensorName + "/" + sensorArray[i].sensorVar;
         String payload = String(sensorArray[i].sensorReading, 2); // Convert float reading to String
-
         client.publish(topic.c_str(), payload.c_str());
     }
 }
