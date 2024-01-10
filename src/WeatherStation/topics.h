@@ -2,8 +2,9 @@
 #ifndef TOPICS_H
 #define TOPICS_H
 
-/* this really has evolved in to way more than topics, to include MQTT settings
-   and sensor variables, along with topics...
+/* this really has evolved to be less about topics (which we
+   build dynamically and more about MQTT settings
+   and sensor variables...
    CeC (5-Jan-2024)
   */
 
@@ -79,7 +80,8 @@ const byte RAIN = 27;       //Digital I/O pin for rain fall
  */
 struct SensorConfig {
     int sensorIndex;      // arbitrary indexing to determine how to read;
-                          // must put the proper sampling code in the switch statement
+                          // must put the proper sampling code in the
+                          // switch statement in readSensors().
     String sensorName;    // sensor or package name (to look up datasheet)
     String sensorVar;     // sensor measurement name
     float sensorReading;  // latest reading from this sensor
@@ -89,7 +91,7 @@ struct SensorConfig {
 
 // it would make sense in most cases to just use MQTT_CLIENT here...
 // an easy change (2 references in WeatherStation.ino to change)
-#define DEVICE_ID "WMK"   // it make sense to just use MQTT_CLIEN
+#define DEVICE_ID "WMK" 
   
 SensorConfig sensorArray[] = {
     {0, "CN",     "rain",       0.0 },          
