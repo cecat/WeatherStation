@@ -3,7 +3,6 @@
   example at EspMQTTClient by @plapointe6.
   (https://github.com/plapointe6/EspMQTTClient/tree/master)
 
-
   Weather Station functions are adapted from the SparkFun
   MM_WeatherMeter_Test example.
   (https://github.com/sparkfun/MicroMod_Weather_Carrier_Board/tree/master)
@@ -62,28 +61,29 @@ void setup()
 }
 
 // This function is called once everything is connected (Wifi and MQTT)
-void onConnectionEstablished()
-{
+
+void onConnectionEstablished() {
+
   // Set up and subscribe to topics for each sensor
 
   for (int i = 0; i < sizeof(sensorArray)/sizeof(sensorArray[0]); i++) {
-        // Construct the MQTT topic for the current sensor
-        String mqttTopic = String(DEVICE_ID) + "/" + sensorArray[i].sensorName + "/" + sensorArray[i].sensorVar;
-        // Subscribe 
-        client.subscribe(mqttTopic.c_str(), [](const String & payload) {
-            Serial.println(payload);
-        });
-    }
+      // Construct the MQTT topic for the current sensor
+      String mqttTopic = String(DEVICE_ID) + "/" + sensorArray[i].sensorName + "/" + sensorArray[i].sensorVar;
+      // Subscribe 
+      client.subscribe(mqttTopic.c_str(), [](const String & payload) {
+          Serial.println(payload);
+      });
+   }
 }
 
 // all the action happens when the interrupt timer (Wc_timer) fires.
+
 void loop()
 {
  
   client.loop();
 
   if (goTime) {
-    //printWeather();
     readSensors();
     publishSensorData();
     goTime = false;
@@ -93,25 +93,26 @@ void loop()
 
 void readSensors() {
     
-    for (int i = 0; i < sizeof(sensorArray) / sizeof(sensorArray[0]); i++) {
-      switch (sensorArray[i].sensorIndex){ 
-        case 0:  
-          sensorArray[i].sensorReading = myweatherMeterKit.getTotalRainfall();
-          break;
-        case 1:
-          sensorArray[i].sensorReading = myweatherMeterKit.getWindDirection();
-          break;
-        case 2:
-          sensorArray[i].sensorReading = myweatherMeterKit.getWindSpeed();
-          break;
-        case 3: // will mod the line below when I hook up the soil moisture sensor and it's prolly just an analogRead
-          // sensorArray[i].sensorReading = static_cast<float>(readSoilMoistureSensor()); // Read int; convert to float
-          break;
-      }
-    } 
+  for (int i = 0; i < sizeof(sensorArray) / sizeof(sensorArray[0]); i++) {
+    switch (sensorArray[i].sensorIndex){ 
+      case 0:  
+        sensorArray[i].sensorReading = myweatherMeterKit.getTotalRainfall();
+        break;
+      case 1:
+        sensorArray[i].sensorReading = myweatherMeterKit.getWindDirection();
+        break;
+      case 2:
+        sensorArray[i].sensorReading = myweatherMeterKit.getWindSpeed();
+        break;
+      case 3: // will mod the line below when I hook up the soil moisture sensor 
+        // sensorArray[i].sensorReading = static_cast<float>(readSoilMoistureSensor()); // Read int; convert to float
+        break;
+    }
+  } 
 }
 
 void publishSensorData() {
+
     for (int i = 0; i < sizeof(sensorArray) / sizeof(sensorArray[0]); i++) {
         String topic = String(DEVICE_ID) + "/" + sensorArray[i].sensorName + "/" + sensorArray[i].sensorVar;
         String payload = String(sensorArray[i].sensorReading, 2); // Convert float reading to String
