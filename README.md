@@ -70,7 +70,8 @@ does not care about what client library you are using.
 I'm not super happy with these implementations which require
 hand-coding the mqtt topics for each sensor, but could not
 find a way to dynamically build those given the limitations to
-the Arduino/ESP implementations of C++. Would love it if
+the Arduino/ESP implementations of C++ and tricky (fragile?) 
+memory management features in those platforms. Would love it if
 someone figured that out.
 
 For more general information on Home Assistant and how (and why)
