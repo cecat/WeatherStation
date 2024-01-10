@@ -67,9 +67,10 @@ but there are some instructions on how to work the HA side of things that
 does not care about what client library you are using.
 
 ## Comments
-I'm not super happy with these implementations which require
-hand-coding the mqtt topics for each sensor, but could not
-find a way to dynamically build those given the limitations to
+I'm not super happy with the AdaFruit implementation, which requires
+(afaict) hand-coding the mqtt topics for each sensor, but could not
+find a way to dynamically build those (as in the implementation with
+the EspMQTTClient library) given the limitations to
 the Arduino/ESP implementations of C++ and tricky (fragile?) 
 memory management features in those platforms. Would love it if
 someone figured that out.
