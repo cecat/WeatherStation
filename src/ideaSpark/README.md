@@ -25,24 +25,22 @@ from the Silicon Labs USB to UART Bridge VCP Drivers
 Unzip the file and run the installer from the resulting folder. When you 
 run the installer, you'll be asked if you want to open this file downloaded
 from the Internet (yes), if you trust the source (yes), then
-a popup will tell you that this installer is trying to...well, install
-a system component. The system will ask if you want to bail or open
-system settings (to give permission). 
-Since that is what we want, we select "open System
-Settings" and hit the "Allow" button (it will say "System software
-from application CP210xVCPDriver was blocked from loading"
+a popup will tell you that this installer is trying to modify
+your system and do you want to cancel or **Open System Settings**.  
+Select the latter and select the **Allow** button in the
+*Privacy & Security* window that appears.
 
 Repeat these steps to install the cH34 drivers, also a zip
 file, from the
 [ch34xser_macos git repository](https://github.com/WCHSoftGroup/ch34xser_macos).
  Here, there is a .dmg file that you can download (rather than going to the
 linked site, which is not in English. Once unzipped, it will tell you
-to drag the CH34xVCPDriver installer into yoru Applications folder.
+to drag the CH34xVCPDriver installer into your Applications folder.
 
 Do that, open it,  and again when you receive the system blocked message
 click to open *Privacy & Security* and *Allow* the software to load.
 
-Now reboot. 
+Now **reboot** your Mac. 
 
 ## Step 2: Set up Arduino IDE
 
@@ -53,34 +51,35 @@ at the end of this step anyway).
 
 ### Add a new boards source and select the proper board
 
-At the bottom of the "settings" (Arduino IDE -> Settings) window,
+At the bottom of the *Settings* (Arduino IDE -> Settings) window,
 select the green icon to the right of the
-"Additional boards manager URLs" text box.
+*Additional boards manager URLs* text box.
 
 Add a line to this window, pasting in:
 
-"http://arduino.esp8266.com/stable/package_esp8266com_index.json"
+**http://arduino.esp8266.com/stable/package_esp8266com_index.json**
 
-After closing this window, got to "Tools -> Board -> Boards Manager"
+After closing this window, got to **Tools -> Board -> Boards Manager**
 (if your system is already set up for another board, the Boards Manager
 item will have the name of that board...we are about to change it.)
 
 This will open a menu bar to the left of your Sketch window.
-In the search bar type "ESP8266" and you should see one result:
-"ESP8266 by ESP8266 Community."
+In the search bar type **ESP8266** and you should see one result:
+*ESP8266 by ESP8266 Community.*
 
 Hit the green **INSTALL** button and you'll see an output window appear
 at the bottom of your sketch window where you can watch the isntall
-happen.  When it's finished, the "INSTALL" button will be replaced with
-a *REMOVE* button which indicates the install completed (assuming you see
+happen.  When it's finished, the **INSTALL** button will be replaced with
+a **REMOVE** button which indicates the install completed (assuming you see
 no errors to the contrary in the output window).
 
-Now, go back to the Tools -> Board menu and select then -> ESP8266 and
-from the list select NodeMCU 1.0 (ESP-12E Module).
+Now, go back to the 
+*Tools -> Board* menu and select *-> ESP8266* then 
+from the list of boards there select **NodeMCU 1.0 (ESP-12E Module)**.
 
 ### Set the Port and Test
 
-In Tools->Port, select */dev/cu.usbserieal-####* where *####* is a
+In *Tools->Port*, select **dev/cu.usbserieal-####** where *####* is a
 four-digit number.
 
 At this point you can test to see if you can now load sketches onto
