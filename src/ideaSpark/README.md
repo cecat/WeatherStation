@@ -22,7 +22,7 @@ Download the
 from the Silicon Labs USB to UART Bridge VCP Drivers 
 [download page](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers?tab=downloads)).
 
-Unzip the file and run the installer from the resulting folder. Wen you 
+Unzip the file and run the installer from the resulting folder. When you 
 run the installer, you'll be asked if you want to open this file downloaded
 from the Internet (yes), if you trust the source (yes), then
 a popup will tell you that this installer is trying to...well, install
@@ -40,11 +40,16 @@ linked site, which is not in English. Once unzipped, it will tell you
 to drag the CH34xVCPDriver installer into yoru Applications folder.
 
 Do that, open it,  and again when you receive the system blocked message
-click to open Privacy&Security and "Allow" the software to load.
+click to open *Privacy & Security* and *Allow* the software to load.
 
 Now reboot. 
 
 ## Step 2: Set up Arduino IDE
+
+The original (Windows-specific) instructions say that one must use
+Arduino IDE version 1.8.4.  That may be true on Windows but I am using
+version 2.2.1 on a Mac and this works fine (if getting :"blink" to work
+at the end of this step anyway).
 
 ### Add a new boards source and select the proper board
 
@@ -64,18 +69,33 @@ This will open a menu bar to the left of your Sketch window.
 In the search bar type "ESP8266" and you should see one result:
 "ESP8266 by ESP8266 Community."
 
-Hit the green "INSTALL" button and you'll see an output window appear
+Hit the green **INSTALL** button and you'll see an output window appear
 at the bottom of your sketch window where you can watch the isntall
 happen.  When it's finished, the "INSTALL" button will be replaced with
-a "REMOVE" button which indicates the install completed (assuming you see
+a *REMOVE* button which indicates the install completed (assuming you see
 no errors to the contrary in the output window).
 
 Now, go back to the Tools -> Board menu and select then -> ESP8266 and
 from the list select NodeMCU 1.0 (ESP-12E Module).
 
-### Set the Port
+### Set the Port and Test
 
-In Tools->Port, select
+In Tools->Port, select */dev/cu.usbserieal-####* where *####* is a
+four-digit number.
+
+At this point you can test to see if you can now load sketches onto
+the ESP board from the Arduio IDE, so we will go to 
+*File -> Examples -> Basics -> Blink* which will open a new sketch
+window.  Here select the **->** button at the top left to upload
+the sketch to your board.
+
+You should see progress messages to compile then compress then write
+the sketch to your board.  At the end of these messages it will 
+tell you it's resetting the board and the LED should be blinking on/off
+at 1s intervals.
+
+It this is happening, well done we are ready to move on.
+
 
 
 ## Step 3
