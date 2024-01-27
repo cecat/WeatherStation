@@ -3,13 +3,15 @@
 This repository is intended to augment the instruction manual for
 the [ideaSpark Weather Station](https://gitlab.com/GJKJ/WSK).
 
-After downloading the instruction manual from the ideaSpark repo
-and unzipping it, we will go through the manual here.
+You'll still want to download the instruction manual from the ideaSpark repo
+and unzip it as the figures are helpful (even though the Arduino IDE menus
+are not identical between Mac and Windows). The steps below align
+with those in the manual.
 
-This is a work in progress to create instructions for Mac users. I'm
+*This is a work in progress to create instructions for Mac users. I'm
 using a MacBook with Apple silicon (vs. Intel) and have not tested
 with Intel silicon. I don't think the drivers are different, but I
-have not tried with an Intel-based Mac.
+have not tried with an Intel-based Mac.*
 
 January 2024
 
