@@ -5,8 +5,13 @@ the [ideaSpark Weather Station](https://gitlab.com/GJKJ/WSK).
 
 You'll still want to download the instruction manual from the ideaSpark repo
 and unzip it as the figures are helpful (even though the Arduino IDE menus
-are not identical between Mac and Windows). The steps below align
-with those in the manual.
+are not identical between Mac and Windows). 
+
+However, the manual has some odd ans significant flaws-- for starters no
+information about where to download the files it tells you to use! So even
+if you are using a Windows PC you should not follow the manual
+(except where the instructiosn below tell 
+you otherwise for specific things)..
 
 *This is a work in progress to create instructions for Mac users. I'm
 using a MacBook with Apple silicon (vs. Intel) and have not tested
@@ -18,6 +23,7 @@ January 2024
 --------------------
 
 ## Step 1: Install USB-To-Serial
+
 
 Download the
 [Mac OSX Driver](https://www.silabs.com/documents/public/software/Mac_OSX_VCP_Driver.zip).
@@ -36,13 +42,18 @@ Repeat these steps to install the cH34 drivers, also a zip
 file, from the
 [ch34xser_macos git repository](https://github.com/WCHSoftGroup/ch34xser_macos).
  Here, there is a .dmg file that you can download (rather than going to the
-linked site, which is not in English. Once unzipped, it will tell you
+linked site, which is not in English). Once unzipped, it will tell you
 to drag the CH34xVCPDriver installer into your Applications folder.
 
 Do that, open it,  and again when you receive the system blocked message
 click to open *Privacy & Security* and *Allow* the software to load.
 
 Now **reboot** your Mac. 
+
+*WINDOWS USERS: If you are a Windows PC user, there is a 
+[video with a cheerful Windows tech guy](https://www.youtube.com/watch?v=4tKOnaz192E) 
+who will walk you through checking to see if you need the driver, and finding and
+installing the driver if you need it.*
 
 ## Step 2: Set up Arduino IDE
 
@@ -97,14 +108,35 @@ at 1s intervals.
 
 It this is happening, well done we are ready to move on.
 
+## Step 3 Burn New Firmware to ESP8255
 
+It's not at all clear why this step was included, as it's not needed.
 
-## Step 3
 
 ## Step 4
 
 ## Step 5
 
 ## Step 6: Import WeatherStation code in the Arduino IDE
+
+Download the code here <tbd>.
+
+In the Arduion IDE, go to Libraries and search for and install (with dependencies) the following
+librarires:
+Adafruit GFX Library
+Adafruit SSD1306
+BH1750 (many search hits... I used "BH1750 by Christopher Laws")
+DHT sensor library (by Adafruit)
+
+The final lbirary needed, SFE_BMP180, will have to be installed manually.  It's available 
+on eithub at [https://github.com/LowPowerLab/SFE_BMP180](https://github.com/LowPowerLab/SFE_BMP180).
+At that link, download as a zip file (toward the top, just left of "About" is a "<> Code" button
+that yields a pull-down menu of options, including "Download Zip."
+
+After downloading, in your Arduino IDE, Select from the top menubar "Sketch -> Include Zip Library"
+and then navigate to your downloads folder and select the downloaded zip file (SFE_BMP180-master.zip).
+
+The code should now compile without errors.  If you get any errors indicating that there is a
+missing xyz.h file that means you did not get the right libraries, so must have missed a step above.
 
 
