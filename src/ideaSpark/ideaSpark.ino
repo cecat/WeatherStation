@@ -130,7 +130,6 @@ void loop() {
 
   // clear the display
   display.clearDisplay();
-  Serial.println
 
   // display temperature
   display.setTextSize(1);

@@ -44,7 +44,7 @@ dependencies, and you want to always say yes to this:
 * SparkFun VEML6075
 * SparkFun AS3935
 * SparkFun Weather Meter Kit Arduino
-* EspMQTT by Patrick Lapointe
+* ESP32MQTTClient by Patrick Lapointe
 
 Quit/restart the Arduino IDE app just for good measure.
 
