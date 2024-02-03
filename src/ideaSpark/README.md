@@ -1,21 +1,45 @@
 # ideaSpark Weather Kit
 
-This repository replaces the (effectively useless) instruction manual for
+This repository replaces the instruction manual for
 the [ideaSpark Weather Station](https://gitlab.com/GJKJ/WSK).
 
-You'll still want to download the instruction manual from the ideaSpark repo
-and unzip it as some of the figures are helpful (even though the Arduino IDE
-images are from Windows, where the menus are slighly different than on a Mac).
+You'll still want to download the Guide_Manual.. doc file
+from the ideaSpark repo and unzip it as some of the figures are helpful
+(though note that the Arduino IDE images are from Windows, where the
+menus are slighly different than on a Mac).
 
 The instructions here are tested only on a Mac.
-using a MacBook with Apple silicon (vs. Intel)
+using a MacBook with Apple silicon (M2).
+
+If you have already set up the SparkFun Weather Station Kit
+and gotten it running you'll already have done several of the steps
+below.  You can skip step 2 in this case.
 
 February 2024
 CeCat
 
 --------------------
 
-## Step 1: Install USB-To-Serial
+## Step 1: Assemble the Kit
+
+These kits require some soldering to put headers onto several of the 
+sensors. Once you've done that, you're ready to assemble.  Note first 
+that the ESP8266 processor board is too wide to straddle the middle
+channel on the breadboards that came in the kit, but you only need the
+pins on the right side (when viewing the board with the USB interface
+facing down and toward you).  That is, the side with pins
+D0, D1....G, 3V.
+
+The image in the ideaSpark kit is helpful, though they are using pins
+D3 and D4 to connect the OLED display and 2 of the sensors (using I2C).
+The default for the I2C libraries is to use D1 and D2. It doesn't matter
+which you use, as long as you select the right instance of **Wire.begin**
+line within the *setup()* portion of the ideaSpark.ino code (about
+line 62 or 63).
+
+### Wiring
+
+## Step 2: Install USB-To-Serial
 
 ### Download Drivers
 Download the
@@ -49,7 +73,7 @@ If you are a Windows PC user, there is a
 who will walk you through checking to see if you need the driver, and finding and
 installing the driver if you need it.*
 
-## Step 2: Set up Arduino IDE
+## Step 3: Set up Arduino IDE
 
 The original (Windows-specific) instructions say that one must use
 Arduino IDE version 1.8.4.  That may be true on Windows but I am using
@@ -110,7 +134,7 @@ at 1s intervals.
 
 It this is happening, well done we are ready to move on.
 
-## Step 3: Import WeatherStation code in the Arduino IDE
+## Step 4: Import WeatherStation code in the Arduino IDE
 
 ### Download the code 
 
