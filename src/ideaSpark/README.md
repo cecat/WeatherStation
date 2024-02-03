@@ -20,25 +20,6 @@ CeCat
 
 --------------------
 
-## Step 1: Assemble the Kit
-
-These kits require some soldering to put headers onto several of the 
-sensors. Once you've done that, you're ready to assemble.  Note first 
-that the ESP8266 processor board is too wide to straddle the middle
-channel on the breadboards that came in the kit, but you only need the
-pins on the right side (when viewing the board with the USB interface
-facing down and toward you).  That is, the side with pins
-D0, D1....G, 3V.
-
-The image in the ideaSpark kit is helpful, though they are using pins
-D3 and D4 to connect the OLED display and 2 of the sensors (using I2C).
-The default for the I2C libraries is to use D1 and D2. It doesn't matter
-which you use, as long as you select the right instance of **Wire.begin**
-line within the *setup()* portion of the ideaSpark.ino code (about
-line 62 or 63).
-
-### Wiring
-
 ## Step 1: Install USB-To-Serial
 
 ### Download Drivers
