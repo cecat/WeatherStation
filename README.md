@@ -27,7 +27,17 @@ Both sketches also borrow from the *SparkFun Weather Station Carrier Board*
 The timer functions were nicely documented in a short tutorial in
 [Circuit Digest](https://circuitdigest.com/microcontroller-projects/esp32-timers-and-timer-interrupts).
 
-## To use this code
+# Getting Started
+
+You'll need to do two things before moving on to installing software on your
+weather kit(s).  You will need to 
+* [assemble your kit](https://github.com/cecat/WeatherStation/tree/main/dev)
+(the dev folder) and
+* [set up the Arduino IDE](https://github.com/cecat/WeatherStation/tree/main/src)
+app set up on your computer
+(the src folder).
+
+## Using thse codes
 
 In the src directory is a WeatherStation implementation that works with
 Home Assistant and a WeatherStationAdaFruit that

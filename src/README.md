@@ -24,3 +24,11 @@ The **WeatherStationAdaFruit** source uses MQTT to commuicate with AdaFruit.
 The **ideaSpark** source uses MQTT to communicate with Home Assistant.
 The **ideaSparkAdaFruit** source uses MQTT to communicate with AdaFruit.
 
+# Getting Started
+
+You'll need to do two things before moving on to installing software on your
+weather kit(s).  You will need to
+[assemble your kit](https://github.com/cecat/WeatherStation/tree/main/dev)
+and you will need to
+have the Arduino IDE app set up on your computer.
+
