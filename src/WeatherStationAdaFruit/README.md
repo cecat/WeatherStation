@@ -18,9 +18,8 @@ This code uses MQTT/WiFi to communicate with
 [Home Assistant](https://www.home-assistant.io/). 
 
 The code borrows from the
-WiFi/MQTT library
-[EspMQTTClient](https://github.com/plapointe6/EspMQTTClient)
-by @plapointe6.
+Adafruit MQTT library
+[examples](https://github.com/adafruit/Adafruit_MQTT_Library/tree/master/examples/adafruitio_secure_esp32).
 
 We also use code here from the *SparkFun Weather Station Carrier Board*
 [example codes](https://github.com/sparkfun/MicroMod_Weather_Carrier_Board/).
