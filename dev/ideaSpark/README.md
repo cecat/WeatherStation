@@ -36,21 +36,21 @@ wire coming from the DT11.  (the actual colors don't matter, just
 the consistency)*
 
 * OLED (display)
-** SCL <----> D1
-** SDA <----> D2
-** VCC <----> 3V
-** GND <----> G
+	* SCL <----> D1
+	* SDA <----> D2
+	* VCC <----> 3V
+	* GND <----> G
 * BH1750 (light intensity)
-** SCL <----> D1
-** SDA <----> D2
-** VCC <----> 3V
-** GND <----> G
+	* SCL <----> D1
+	* SDA <----> D2
+	* VCC <----> 3V
+	* GND <----> G
 * BMP180 (atmospheric pressure, temperature, relative humidity)
-** SCL <----> D1
-** SDA <----> D2
-** VCC <----> 3V
-** GND <----> G
+	* SCL <----> D1
+	* SDA <----> D2
+	* VCC <----> 3V
+	* GND <----> G
 * DHT11 (temperature, relative humidity)
-** OUT <----> D5
-** VCC <----> 3V
-** GND <----> G
+	* OUT <----> D5
+	* VCC <----> 3V
+	* GND <----> G
