@@ -39,6 +39,9 @@ app set up on your computer
 
 ## Using thse codes
 
+Once you have completed the assembly and Arduino IDE set up you're ready to
+Install the libraries and software you need.
+
 In the src directory is a WeatherStation implementation that works with
 Home Assistant and a WeatherStationAdaFruit that
 works with AdaFruit's MQTT service (io.adafruit.com).
