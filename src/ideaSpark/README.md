@@ -39,7 +39,7 @@ line 62 or 63).
 
 ### Wiring
 
-## Step 2: Install USB-To-Serial
+## Step 1: Install USB-To-Serial
 
 ### Download Drivers
 Download the
@@ -73,7 +73,7 @@ If you are a Windows PC user, there is a
 who will walk you through checking to see if you need the driver, and finding and
 installing the driver if you need it.*
 
-## Step 3: Set up Arduino IDE
+## Step 2: Set up Arduino IDE
 
 The original (Windows-specific) instructions say that one must use
 Arduino IDE version 1.8.4.  That may be true on Windows but I am using
@@ -132,11 +132,10 @@ the sketch to your board.  At the end of these messages it will
 tell you it's resetting the board and the LED should be blinking on/off
 at 1s intervals.
 
-It this is happening, well done we are ready to move on.
+It this is happening, well done we are ready to move on to install
+the weather station sketch (code).
 
-## Step 4: Import WeatherStation code in the Arduino IDE
-
-### Download the code 
+## Step 3
 
 ### Install the necessary Arduino libraries
 
@@ -147,7 +146,7 @@ librarires:
 * BH1750 (many search hits... I used "BH1750 by Christopher Laws")
 * DHT sensor library (by Adafruit)
 
-The final lbirary needed, SFE_BMP180, will have to be installed manually.  
+The final library needed, SFE_BMP180, will have to be installed manually.  
 
 Navigate to 
 [https://github.com/LowPowerLab/SFE_BMP180](https://github.com/LowPowerLab/SFE_BMP180) 
@@ -157,15 +156,22 @@ is a "<> Code" button that yields a pull-down menu of options, including "Downlo
 After downloading, in your Arduino IDE, Select from the top menubar "Sketch -> Include Zip Library"
 and then navigate to your downloads folder and select the downloaded zip file (SFE_BMP180-master.zip).
 
+
+### Download the weather code .ino in this folder.
+(more detail to come)
+
 ### Test
 
-The code should now compile without errors.  You can check this without the board installed using
-the Arduino IDE. In the sketch window there is a 'check  mark' icon in hte upper left to just compile
-the sketch.  This is just to the left of the 'right arrow' icon which is to compile and upload to the
-board.
+The code should now compile without errors.  You can check this without
+the board installed using the Arduino IDE. In the sketch window there is
+a 'check  mark' icon in hte upper left to just compile
+the sketch.  This is just to the left of the 'right arrow' icon
+which is to compile and upload to the board.
 
-If you get any errors indicating that there is a missing xyz.h file that means you did not get
-the right libraries, so must have missed a step above (or that the instructions are incorrect).
-Try searching in the Libraries tab for the "xyz" part of the "xyz.h" in the error message.
+If you get any errors indicating that there is a missing xyz.h file
+that means you did not get the right libraries, so must have missed
+a step above (or that the instructions are incorrect).  Try searching
+in the Libraries tab for the "xyz" part of the "xyz.h" in
+the error message.
 
 
