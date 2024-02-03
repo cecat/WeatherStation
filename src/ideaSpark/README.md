@@ -1,30 +1,23 @@
 # ideaSpark Weather Kit
 
-This repository is intended to augment the instruction manual for
+This repository replaces the (effectively useless) instruction manual for
 the [ideaSpark Weather Station](https://gitlab.com/GJKJ/WSK).
 
 You'll still want to download the instruction manual from the ideaSpark repo
-and unzip it as the figures are helpful (even though the Arduino IDE menus
-are not identical between Mac and Windows). 
+and unzip it as some of the figures are helpful (even though the Arduino IDE
+images are from Windows, where the menus are slighly different than on a Mac).
 
-However, the manual has some odd ans significant flaws-- for starters no
-information about where to download the files it tells you to use! So even
-if you are using a Windows PC you should not follow the manual
-(except where the instructiosn below tell 
-you otherwise for specific things)..
+The instructions here are tested only on a Mac.
+using a MacBook with Apple silicon (vs. Intel)
 
-*This is a work in progress to create instructions for Mac users. I'm
-using a MacBook with Apple silicon (vs. Intel) and have not tested
-with Intel silicon. I don't think the drivers are different, but I
-have not tried with an Intel-based Mac.*
-
-January 2024
+February 2024
+CeCat
 
 --------------------
 
 ## Step 1: Install USB-To-Serial
 
-
+### Download Drivers
 Download the
 [Mac OSX Driver](https://www.silabs.com/documents/public/software/Mac_OSX_VCP_Driver.zip).
 from the Silicon Labs USB to UART Bridge VCP Drivers 
@@ -48,9 +41,10 @@ to drag the CH34xVCPDriver installer into your Applications folder.
 Do that, open it,  and again when you receive the system blocked message
 click to open *Privacy & Security* and *Allow* the software to load.
 
-Now **reboot** your Mac. 
+### Reboot
 
-*WINDOWS USERS: If you are a Windows PC user, there is a 
+### Windows Notes
+If you are a Windows PC user, there is a 
 [video with a cheerful Windows tech guy](https://www.youtube.com/watch?v=4tKOnaz192E) 
 who will walk you through checking to see if you need the driver, and finding and
 installing the driver if you need it.*
@@ -62,7 +56,7 @@ Arduino IDE version 1.8.4.  That may be true on Windows but I am using
 version 2.2.1 on a Mac and this works fine (if getting :"blink" to work
 at the end of this step anyway).
 
-### Add a new boards source and select the proper board
+### Add a source for board drivers 
 
 At the bottom of the *Settings* (Arduino IDE -> Settings) window,
 select the green icon to the right of the
@@ -72,8 +66,12 @@ Add a line to this window, pasting in:
 
 **http://arduino.esp8266.com/stable/package_esp8266com_index.json**
 
-After closing this window, got to **Tools -> Board -> Boards Manager**
-(if your system is already set up for another board, the Boards Manager
+### Install new boards drivers
+
+After closing the *Settings* window, got to **Tools -> Board -> Boards Manager**
+(if your Arduino IDE is already set up for another board, such as for the
+[SparkFun WeatherStation](https://github.com/cecat/WeatherStation/tree/main/src/WeatherStationAdaFruit),
+the Boards Manager
 item will have the name of that board...we are about to change it.)
 
 This will open a menu bar to the left of your Sketch window.
@@ -86,14 +84,18 @@ happen.  When it's finished, the **INSTALL** button will be replaced with
 a **REMOVE** button which indicates the install completed (assuming you see
 no errors to the contrary in the output window).
 
+### Select the board
+
 Now, go back to the 
 *Tools -> Board* menu and select *-> ESP8266* then 
 from the list of boards there select **NodeMCU 1.0 (ESP-12E Module)**.
 
-### Set the Port and Test
+### Set the Port 
 
 In *Tools->Port*, select **dev/cu.usbserieal-####** where *####* is a
 four-digit number.
+
+### Test
 
 At this point you can test to see if you can now load sketches onto
 the ESP board from the Arduio IDE, so we will go to 
@@ -108,35 +110,38 @@ at 1s intervals.
 
 It this is happening, well done we are ready to move on.
 
-## Step 3 Burn New Firmware to ESP8255
+## Step 3: Import WeatherStation code in the Arduino IDE
 
-It's not at all clear why this step was included, as it's not needed.
+### Download the code 
 
-
-## Step 4
-
-## Step 5
-
-## Step 6: Import WeatherStation code in the Arduino IDE
-
-Download the code here <tbd>.
+### Install the necessary Arduino libraries
 
 In the Arduion IDE, go to Libraries and search for and install (with dependencies) the following
 librarires:
-Adafruit GFX Library
-Adafruit SSD1306
-BH1750 (many search hits... I used "BH1750 by Christopher Laws")
-DHT sensor library (by Adafruit)
+* Adafruit GFX Library
+* Adafruit SSD1306
+* BH1750 (many search hits... I used "BH1750 by Christopher Laws")
+* DHT sensor library (by Adafruit)
 
-The final lbirary needed, SFE_BMP180, will have to be installed manually.  It's available 
-on eithub at [https://github.com/LowPowerLab/SFE_BMP180](https://github.com/LowPowerLab/SFE_BMP180).
-At that link, download as a zip file (toward the top, just left of "About" is a "<> Code" button
-that yields a pull-down menu of options, including "Download Zip."
+The final lbirary needed, SFE_BMP180, will have to be installed manually.  
+
+Navigate to 
+[https://github.com/LowPowerLab/SFE_BMP180](https://github.com/LowPowerLab/SFE_BMP180) 
+and download the library as a zip file.  To do this: toward the top, just left of "About"
+is a "<> Code" button that yields a pull-down menu of options, including "Download Zip."
 
 After downloading, in your Arduino IDE, Select from the top menubar "Sketch -> Include Zip Library"
 and then navigate to your downloads folder and select the downloaded zip file (SFE_BMP180-master.zip).
 
-The code should now compile without errors.  If you get any errors indicating that there is a
-missing xyz.h file that means you did not get the right libraries, so must have missed a step above.
+### Test
+
+The code should now compile without errors.  You can check this without the board installed using
+the Arduino IDE. In the sketch window there is a 'check  mark' icon in hte upper left to just compile
+the sketch.  This is just to the left of the 'right arrow' icon which is to compile and upload to the
+board.
+
+If you get any errors indicating that there is a missing xyz.h file that means you did not get
+the right libraries, so must have missed a step above (or that the instructions are incorrect).
+Try searching in the Libraries tab for the "xyz" part of the "xyz.h" in the error message.
 
 
