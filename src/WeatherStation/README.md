@@ -24,7 +24,7 @@ upload software (*sketches*) to the processor in the weather kit.
 
 * Macs: [https://www.arduino.cc/en/software](Download),
 open, and move the app to your Applications folder.
-* Windows: [Download](https://learn.sparkfun.com/tutorials/installing-arduino-ide#windows) and follow the directions at the download page.
+* Windows: [Download via SparkFun](https://learn.sparkfun.com/tutorials/installing-arduino-ide#windows) and follow the directions at the download page.
 
 ## 2. Set up Arduino IDE to upload to Carrier Board
 
@@ -51,21 +51,24 @@ alphabetical list of items available to install. Scroll down to
 Pull down to **Settings**. This will open a **Preferences** window.
 At the bottom of that window where it says **Additional boards manager URLS:**
 you need to paste in the URL below.  If there is already a URL in the window,
-select the green button on the far right of the entry box for pasting.
+select the green button on the far right of the entry box for pasting and
+add this URL as a line after the one(s) already there.
 **https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json**
 
-### 2.3 Plug stuff together
+### 2.3 Plug the carrier board into your computer via USB
 Now quit and reopen the Arduino IDE app, plug the Carrier Board into your
 computer via USB.
 
 ### 2.4 Set the Board 
-Pull down **Tools** to **Board** and slide right to select **ESP32**. Slide
+In the Arduino IDE, pull down **Tools** to **Board** and slide
+right to select **ESP32**. Slide
 right again from there and select **SparkFun ESP32 MicroMod** (or, if you have
 a different processor, select the one that matches yours).
 
 ### 2.5 Set the Port
 Pull down the **Tools** menu again and select the option that begins
-with **dev/cu.serial** (may be different on PC).
+with **dev/cu.usbserial-nnn** (where *nnnn* will vary between computers,
+and may be different on PC).
 
 ### 2.6 Test
 Finally, run a test program to make sure all of the above is set up and you
@@ -89,8 +92,9 @@ field).  The sketch should compile without any errors showing up in
 a new “Output” section of the window that will appear below the code.
 
 If you don't see errors, then compile and upload the sketch to the board.
-To do this, select the *right-arrow* icon in upper left,
-which will (again) compile the code and then upload to your carrier board.
+To do this, select the *right-arrow* icon in upper left of the sketch
+window, which will compile the *Blink* sketch and then upload it
+to your carrier board.
 
 If you have successfully completed all steps to this point you should see
 the blue LED blinking on/off for 1s intervals.
