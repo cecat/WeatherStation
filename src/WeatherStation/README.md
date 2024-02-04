@@ -7,7 +7,7 @@ operations.
 
 *If you've already set up your kit with the Arduino IDE and are here
 to switch from the AdaFruit to the HA version then you can skip to 
-**Set up and Run the Weather Station Code**.
+Step ** 3. Set up and Run the Weather Station Code**.
 
 
 SparkFun weather station
@@ -120,36 +120,39 @@ Quit/restart the Arduino IDE app just for good measure.
 
 ### 3.2 Load the Weather Station Code
 
-The file WeatherStaion.ino is the sketch that we need. Select it and you'll
-see about 120 lines of code and just above the code is a menu bar. Off to the
-right is a download icon to grab the code. Download the code and move it to
+The file **WeatherStaion.ino** is the sketch that we need. Select it and you'll
+see about 120 lines of code (the sketch) and just above the
+code is a menu bar. Off to the
+right is a download icon. Download and move the file to
 a folder on your machine where you'll keep your code, then open it from
-the Arduino IDE. The IDE will tell you that
+the Arduino IDE. The Arduino IDE will tell you that
 *"The file "WeatherStation.ino" needs to be inside a sketch
 folder named "WeatherStation".  Create this folder, move the file,
 and continue?"*
-Here you can select "OK" and just let the IDE create that for you.
+Select "OK" and let the IDE set it up for you.
 
 ### 3.3 Set up your local WiFi and MQTT secrets
 
-Use the *secrets-template.h* files to create a *secrets.h* file,
-plugging in your local specifics for WiFi and MQTT access. If you're
-using Home Assistant you'll find some tips for MQTT setup 
+Make a copy of the *secrets-template.h* file and name it *secrets.h*.
+Edit it to substitute your local specifics for WiFi and MQTT access into
+the appropriate placeholders in the template. For
+Home Assistant you'll find some instructions for MQTT setup 
 [here](https://github.com/cecat/UtilityWatchMQTT/tree/main/HASS).
 There are also some tips on MQTT setup 
 [here](https://github.com/cecat/Lake-Watch).
 
 ### 3.4 Compile/Upload/Run the Sketch.
 
-In the Arduion IDE, hit the right-arrow button to compile and upload this
-sketch to your carrier board. If everything above has been done correctly
-(and these instructions are correct), the output pane will appear below
-the sketch scrolling progress indicators as it checks (compiles) and
-uploads the sketch, then resets the carrier board to get the code running. 
+In the Arduion IDE, hit the right-arrow button (top left portion of the
+sketch window) to compile and upload this sketch to your carrier board.
+If everything above has been done correctly (and these instructions
+are correct), an output pane will appear below
+the sketch scrolling compile and upload progress 
+and then reboots the carrier board to get the code running. 
 
-Open the Serial Monitor to see Sketch Output. Once it this is finished
-uploading, open the Serial Monitor pane by selecting the icon in the
-upper right of the sketch pane that looks like a magnifying glass.
+Once the compile/upload is finished, open the Serial Monitor
+pane by selecting the icon (looks like a magnifying glass) in the
+upper right of the sketch window.
 
 At this point, the Serial Monitor pane should now show a scrolling
 set of reports with wind direction, speed, and rainfall.  If it shows
