@@ -1,28 +1,38 @@
 # WeatherStation
 
-SparkFun weather station
+This repository has code for two different weather stations:
+* SparkFun weather station
 ([MicroMod Weather Carrier Board](https://www.sparkfun.com/products/16794)
 with 
 [SparkFun MicroMod ESP32 processor](https://www.sparkfun.com/products/16781)
 and 
 [Weather Meter Kit](https://www.sparkfun.com/products/15901).
+* Generic ESP8266 weather kit for Arduino sold by 
+[multiple vendors](https://www.amazon.com/Mustpoint-Arduino-ESP8266-Weather-Tutorial/dp/B0BGHTD5M9/ref=sr_1_2?crid=30SF0VVSG1G7Q).  Some come with a QR code pointing to
+a [not-very-helpful manual](https://gitlab.com/GJKJ/WSK) but
+there is a 
+[getting started guide](https://www.amazon.com/ESP8266-Weather-Station-Getting-Started-ebook/dp/B01LFX8Z5W/ref=sr_1_3?crid=CWIBWFT59Q82)
+you can get for Kindle that looks *very* good.
+
 
 ## Dependencies
 
-There are two sketches here. One uses MQTT/WiFi to communicate with 
+There are two sets of sketches here (two for each of the stations).
+One set uses MQTT/WiFi to communicate with 
 [Home Assistant](https://www.home-assistant.io/). The other uses the
 AdaFruit MQTT library that commuincates with the MQTT broker
 service at [io.adafruit.com](https://io.adafruit.com/).
 
-The Home Assistant version of the code borrows from the
+The Home Assistant version of the code uses the
 WiFi/MQTT library
 [EspMQTTClient](https://github.com/plapointe6/EspMQTTClient)
 by @plapointe6.
-The AdaFruit version borrows from the adafruitio_secure_esp32
-example code in the
-[AdaFruit_MQTT_Library](https://github.com/adafruit/Adafruit_MQTT_Library).
+The AdaFruit version uses the
+[AdaFruit_MQTT_Library](https://github.com/adafruit/Adafruit_MQTT_Library) 
+and code borrowed from the *adafruitio_secure_esp32*
+example code in that repository.
 
-Both sketches also borrow from the *SparkFun Weather Station Carrier Board* 
+Both SparkFun sketches also borrow from the *SparkFun Weather Station Carrier Board* 
 [example codes](https://github.com/sparkfun/MicroMod_Weather_Carrier_Board/). 
 The timer functions were nicely documented in a short tutorial in
 [Circuit Digest](https://circuitdigest.com/microcontroller-projects/esp32-timers-and-timer-interrupts).
@@ -42,18 +52,19 @@ app set up on your computer
 Once you have completed the assembly and Arduino IDE set up you're ready to
 Install the libraries and software you need.
 
-In the src directory is a WeatherStation implementation that works with
-Home Assistant and a WeatherStationAdaFruit that
-works with AdaFruit's MQTT service (io.adafruit.com).
+In the src directory is a are implementations that work with
+Home Assistant and AdaFruit 
+(using AdaFruit's free 
+[MQTT service](io.adafruit.com).
 
 Use the secrets-template.h files to create your secrets.h file,
 plugging in your local specifics for WiFi and MQTT access
 There is a secrets-template.h for
 each version of the code as the MQTT specifics are different.
 
-For testing, you can see the message traffic for the
+For testing using the AdaFruit versions, you can see the message traffic for the
 AdaFruit version at io.adafruit.com
-which (when you log in) will give you a dashboard.  For the
+which (when you log in) will give you a dashboard.  For testing the
 HA version you can go to Integrations->MQTT and select "configure,"
 where you can listen for specific topic streams.
 
