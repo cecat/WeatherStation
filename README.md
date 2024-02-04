@@ -6,14 +6,25 @@ This repository has code for two different weather stations:
 with 
 [SparkFun MicroMod ESP32 processor](https://www.sparkfun.com/products/16781)
 and 
-[Weather Meter Kit](https://www.sparkfun.com/products/15901).
+[Weather Meter Kit](https://www.sparkfun.com/products/15901). 
+The hardware assembly instructions from SparkFun are good, but embedded in
+a lot of tutorial information. Similarly, the software tutorials and
+documentation are very good. But in both cases the goal is to understand
+how things work and how to program them, while this repo is intended to
+be a quickstart for those who are more interested in the finished product
+(measuring weather) than the technology.
 * Generic ESP8266 weather kit for Arduino sold by 
 [multiple vendors](https://www.amazon.com/Mustpoint-Arduino-ESP8266-Weather-Tutorial/dp/B0BGHTD5M9/ref=sr_1_2?crid=30SF0VVSG1G7Q).  Some come with a QR code pointing to
-a [not-very-helpful manual](https://gitlab.com/GJKJ/WSK) but
-there is a 
+a not-very-helpful manual but there is a 
 [getting started guide](https://www.amazon.com/ESP8266-Weather-Station-Getting-Started-ebook/dp/B01LFX8Z5W/ref=sr_1_3?crid=CWIBWFT59Q82)
-you can get for Kindle that looks *very* good.
+written by [Daniel Eichhorn](https://github.com/squix78)
+that you can get for Kindle that looks *very* good (as do his
+[github repositories](https://github.com/squix78)).
 
+In both cases above, it might be helpful to go through this quickstart
+and then dive into the SparkFun tutorials and the Eichhorn Kindle book.
+Or if your goal is to learn how to hack hardware and software then
+by all means skip this and use those sources.
 
 ## Dependencies
 
