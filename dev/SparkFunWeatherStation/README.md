@@ -4,8 +4,6 @@
 
 Follow the [SparkFun instructions for assembling the hardware](https://learn.sparkfun.com/tutorials/weather-meter-hookup-guide#hardware-assembly).
 
-<span style="font-family:Papyrus; font-size:-1em;">*small*</span>
-
 *Note1: These are great instructions, but it might be a little bit easier
 to first attach the three sensors to their respective armatures.*
 
@@ -24,12 +22,6 @@ In the guide you can scroll down to
 [Hardware Assembly]( https://learn.sparkfun.com/tutorials/micromod-esp32-processor-board-hookup-guide/hardware-hookup),
 where there are illustrated instructions for mounting the processor on the
 carrier board.
-
-## Install Arduino IDE App on your computer (10 minutes)
-
-Download the Arduino IDE App for your computer:
-* [MacOS]()
-* [Windows]()
 
 ## Move on to Software
 
