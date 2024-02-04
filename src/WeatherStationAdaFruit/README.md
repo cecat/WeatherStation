@@ -7,7 +7,7 @@ operations.
 
 *If you've already set up your kit with the Arduino IDE and are here
 to switch from the HA to the AdaFruit version then you can skip to 
-Step ** 3. Set up and Run the Weather Station Code**.
+Step **3. Set up and Run the Weather Station Code**.
 
 
 SparkFun weather station
