@@ -4,7 +4,7 @@ You'll need to do two things before moving on to installing software on your
 weather kit(s).  You will need to
 [assemble your kit](https://github.com/cecat/WeatherStation/tree/main/dev)
 and you will need to
-have the Arduino IDE app set up on your computer. We will do the latter here.
+have the Arduino IDE app set up on your computer. 
 
 To keep the instructions all in one place, each of the src subdirectories
 has all of the getting started materials you need after you assemble the 
@@ -25,10 +25,7 @@ The instructions match the
 MacOS version, which is slightly different from
 the PC version but should be straightforward to follow there.
 
-### Generic ideaSpark Weather Kit
-
-Follow the instructions
-[here](https://github.com/cecat/WeatherStation/tree/main/src/ideaSpark).
+### Generic (ideaSpark) ESP8266 Weather Kit
 
 The **ideaSpark** source uses MQTT to communicate with Home Assistant.
 The **ideaSparkAdaFruit** source uses MQTT to communicate with AdaFruit.

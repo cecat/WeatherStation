@@ -1,9 +1,13 @@
-# SparkFun WeatherStation with MQTT for Home Assistant Integration
+# SparkFun WeatherStation with MQTT for Home Assistant (HA) Integration
 
 You should already have followed the instructions in the main README.md
 for this repository to aseemble your SparkFun weather kit.  Here we will
 set up the software environment and upload software to get your kit 
 operations.
+
+*If you've already set up your kit with the Arduino IDE and are here
+to switch from the AdaFruit to the HA version then you can skip to 
+**[Set up and Run the Weather Station Code](#sketch)**.
 
 
 SparkFun weather station
@@ -29,10 +33,11 @@ In the Arduino IDE app you'll need to specify the processor you are using
 is connected to the processor (i.e., via USB).
 
 I am using the kit that has the **SparkFun ESP32 MicroMod** processor, so if you
-have a different processor (there are multiple options) you'll need to slightly
-tweak these instructions.
+have a different processor (there are multiple options) you'll need to substitute
+your processor as appropriate in these instructions.
 
-These instructions match the MacOS version, which is slightly different from
+These instructions match the MacOS version of the Arduino IDE,
+where the menus are slightly different from
 the PC version but should be straightforward to follow there.
 
 ### Set up the Arduino IDE board manager
@@ -54,9 +59,9 @@ Now quit and reopen the Arduino IDE app, plug the Carrier Board into your
 computer via USB.
 
 ### Set the Board 
-Pull down **Tools** to **Board** and slide right to select **ESP32**,
-then to the right again to select **SparkFun ESP32 MicroMod** (or, if you have
-a different processor, select the one that matches yours)..
+Pull down **Tools** to **Board** and slide right to select **ESP32**. Slide
+right again from there and select **SparkFun ESP32 MicroMod** (or, if you have
+a different processor, select the one that matches yours).
 
 ### Set the Port
 Pull down the **Tools** menu again and select the option that begins
@@ -90,6 +95,7 @@ which will (again) compile the code and then upload to your carrier board.
 If you have successfully completed all steps to this point you should see
 the blue LED blinking on/off for 1s intervals.
 
+< a id="sketch">< /a>
 ## Set up and Run the Weather Station Code
 
 Now that we are able to upload sketches to the carrier board we can install
