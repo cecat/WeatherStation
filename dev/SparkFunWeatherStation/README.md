@@ -4,6 +4,7 @@
 
 Follow the [SparkFun instructions for assembling the hardware](https://learn.sparkfun.com/tutorials/weather-meter-hookup-guide#hardware-assembly).
 
+<span style="font-family:Papyrus; font-size:3em;">small</span>
 *Note1: These are great instructions, but it might be a little bit easier
 to first attach the three sensors to their respective armatures.*
 
