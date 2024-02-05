@@ -27,7 +27,7 @@ The instructions match the
 MacOS version, which is slightly different from
 the PC version but should be straightforward to follow there.
 
-### Generic (ideaSpark) ESP8266 Weather Kit
+### Generic ESP8266 Weather Kit (ideaSpark) 
 
 The **ideaSpark** source uses MQTT to communicate with Home Assistant.
 The **ideaSparkAdaFruit** source uses MQTT to communicate with AdaFruit.
@@ -65,9 +65,9 @@ to drag the CH34xVCPDriver installer into your Applications folder.
 Do that, open it,  and again when you receive the system blocked message
 click to open *Privacy & Security* and *Allow* the software to load.
 
-### Reboot
+Reboot
 
-### Windows Notes
+*Windows Notes:
 If you are a Windows PC user, there is a
 [video with a cheerful Windows tech guy](https://www.youtube.com/watch?v=4tKOnaz192E)
 who will walk you through checking to see if you need the driver, and finding and
@@ -81,3 +81,6 @@ upload software (*sketches*) to the processor in the weather kit.
 * Macs: [https://www.arduino.cc/en/software](Download),
 open, and move the app to your Applications folder.
 * Windows: [Download via SparkFun](https://learn.sparkfun.com/tutorials/installing-arduino-ide#windows) and follow the directions at the download page.
+
+Once you have this app installed you're ready to move on to the instructions
+for the specific kit and variant you want to build.
