@@ -10,30 +10,6 @@ To keep the instructions all in one place, each of the src subdirectories
 has all of the getting started materials you need after you assemble the 
 hardware.
 
-## Variants
-
-### Sparkfun Weather Meter Station Kit
-
-I am using the kit that has the **SparkFun ESP32 MicroMod** processor, so if you
-have a different processor (there are multiple options) you'll need to slightly
-tweak the instructions.
-
-The **WeatherStation** source uses MQTT to communicate with Home Assistant.
-The **WeatherStationAdaFruit** source uses MQTT to commuicate with AdaFruit.
-
-Instructions these are in their respective src folders as they
-differ in terms of libraries needed and a few other specifics. 
-The instructions match the
-MacOS version, which is slightly different from
-the PC version but should be straightforward to follow there.
-
-### Generic ESP8266 Weather Kit (ideaSpark) 
-
-The **ideaSpark** source uses MQTT to communicate with Home Assistant.
-The **ideaSparkAdaFruit** source uses MQTT to communicate with AdaFruit.
-
-Instructions for these are in their respective src subdirectories.
-
 ## Setting up Arduino IDE and USB Communications
 
 All of these projects use the Arduino IDE application, which connects to
