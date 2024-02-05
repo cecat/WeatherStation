@@ -7,25 +7,13 @@ with
 and
 [Weather Meter Kit](https://www.sparkfun.com/products/15901).
 
-You should already have followed the instructions in the main README.md
-for this repository to assemble your SparkFun weather kit.  Here we will
-set up the software environment and upload software to get your kit 
-operational.
+You should already have followed the instructions in the 
+[dev](https://github.com/cecat/WeatherStation/tree/main/dev) directory
+to assemble your hardware, and the startup instructions in the 
+[src](https://github.com/cecat/WeatherStation/tree/main/src) directory
+to install drivers and the Arduino IDE on your computer.
 
-*If you've already set up the Arduino IDE for a similar project
-then you can skip to Step **3. Set up and Run the Weather Station Code**.
-
-
-## 1. Set up your Computer with the Arduino IDE
-
-Download and install the Arduino IDE app, which allows you to write and
-upload software (*sketches*) to the processor in the weather kit.
-
-* Macs: [https://www.arduino.cc/en/software](Download),
-open, and move the app to your Applications folder.
-* Windows: [Download via SparkFun](https://learn.sparkfun.com/tutorials/installing-arduino-ide#windows) and follow the directions at the download page.
-
-## 2. Set up Arduino IDE to upload to Carrier Board
+## 1. Set up Arduino IDE to upload to Carrier Board
 
 In the Arduino IDE app you'll need to specify the processor you are using
 (what we installed on the Carrier board) and the port (of your computer) that
@@ -39,14 +27,14 @@ These instructions match the MacOS version of the Arduino IDE,
 where the menus are slightly different from
 the PC version but should be straightforward to follow there.
 
-### 2.1 Set up the Arduino IDE board manager
+### 1.1 Set up the Arduino IDE board manager
 In the Arduino IDE app, pull down the **Tools** menu to **Boards** and
 slide right to select **Board Manager**. This will pull up a navigation
 bar along the left side of the Arduino IDE app window with an
 alphabetical list of items available to install. Scroll down to
 **esp32 by Espressif Systems** and hit the green **INSTALL**  button.
 
-### 2.2 Add ESP32 boards library
+### 1.2 Add ESP32 boards library
 Pull down to **Settings**. This will open a **Preferences** window.
 At the bottom of that window where it says **Additional boards manager URLS:**
 you need to paste in the URL below.  If there is already a URL in the window,
@@ -54,22 +42,22 @@ select the green button on the far right of the entry box for pasting and
 add this URL as a line after the one(s) already there.
 **https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json**
 
-### 2.3 Plug the carrier board into your computer via USB
+### 1.3 Plug the carrier board into your computer via USB
 Now quit and reopen the Arduino IDE app, plug the Carrier Board into your
 computer via USB.
 
-### 2.4 Set the Board 
+### 1.4 Set the Board 
 In the Arduio IDE, Pull down **Tools** to **Board** and slide
 right to select **ESP32**. Slide right again from there and
 select **SparkFun ESP32 MicroMod** (or, if you have
 a different processor, select the one that matches yours).
 
-### 2.5 Set the Port
+### 1.5 Set the Port
 Pull down the **Tools** menu again and select the option that begins
 with **dev/cu.usbserial-nnnn** (where *nnnn* will vary between computers,
 and may be different on PC).
 
-### 2.6 Test
+### 1.6 Test
 Finally, run a test program to make sure all of the above is set up and you
 can upload software (*sketches*) to your board. In the Arduino IDE app,
 pull down **File** to **Examples**, slide right to
@@ -99,12 +87,12 @@ to your carrier board.
 **If you have successfully completed all steps to this point you should see
 the blue LED blinking on/off for 1s intervals.**
 
-## 3. Set up and Run the Weather Station Code
+## 2. Set up and Run the Weather Station Code
 
 Now that we are able to upload sketches to the carrier board we can install
 the necessary libraries and software to make the Weather Station operational.
 
-### 3.1 Install Sensor Libraries
+### 2.1 Install Libraries
 
 We need to install some libraries for the weather station sensors.
 In the Arduino IDE app, select **Tools -> Manage Libraries**.
@@ -122,7 +110,7 @@ dependencies, and you want to always say yes to this:
 
 Quit/restart the Arduino IDE app just for good measure.
 
-### 3.2 Load the Weather Station Code
+### 2.2 Load the Weather Station Code
 
 The file **WeatherStaionAdaFruit.ino** is the sketch that we need. Select it and you'll
 see about 120 lines of code (the sketch) and just above the
@@ -135,7 +123,7 @@ folder named "WeatherStationAdaFruit".  Create this folder, move the file,
 and continue?"*
 Select "OK" and let the IDE set it up for you.
 
-### 3.3 Set up your local WiFi and MQTT secrets
+### 2.3 Set up your local WiFi and MQTT secrets
 
 Make a copy of the *secrets-template.h* file and name it *secrets.h*.
 Edit it to substitute your WiFi SSID (name) and password in the 
@@ -153,7 +141,7 @@ window and paste them at the end of your secrets.h file
 (deleting the placeholder lines).
 
 
-### 3.4 Compile/Upload/Run the Sketch.
+### 2.4 Compile/Upload/Run the Sketch.
 
 In the Arduion IDE, hit the right-arrow button (top left portion of the
 sketch window) to compile and upload this sketch to your carrier board.

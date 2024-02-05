@@ -7,10 +7,11 @@ with
 and
 [Weather Meter Kit](https://www.sparkfun.com/products/15901).
 
-You should already have followed the instructions in the main README.md
-for this repository to assemble your SparkFun weather kit.  Here we will
-set up the software environment and upload software to get your kit 
-operational.
+You should already have followed the instructions in the 
+[dev](https://github.com/cecat/WeatherStation/tree/main/dev) directory
+to assemble your hardware, and the startup instructions in the 
+[src](https://github.com/cecat/WeatherStation/tree/main/src) directory
+to install drivers and the Arduino IDE on your computer.
 
 ## 1. Set up Arduino IDE to connect and upload to Carrier Board
 
@@ -90,7 +91,7 @@ the blue LED blinking on/off for 1s intervals.
 Now that we are able to upload sketches to the carrier board we can install
 the necessary libraries and software to make the Weather Station operational.
 
-### 2.1 Install Sensor Libraries
+### 2.1 Install Libraries
 
 We need to install some libraries for the weather station sensors.
 In the Arduino IDE app, select **Tools -> Manage Libraries**.
