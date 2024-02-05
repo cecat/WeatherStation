@@ -1,32 +1,18 @@
 # SparkFun WeatherStation with MQTT for Home Assistant (HA) Integration
 
-You should already have followed the instructions in the main README.md
-for this repository to aseemble your SparkFun weather kit.  Here we will
-set up the software environment and upload software to get your kit 
-operations.
-
-*If you've already set up your kit with the Arduino IDE and are here
-to switch from the AdaFruit to the HA version then you can skip to 
-Step ** 3. Set up and Run the Weather Station Code**.
-
-
-SparkFun weather station
+Setting up the software for the SparkFun weather station
 ([MicroMod Weather Carrier Board](https://www.sparkfun.com/products/16794)
 with
 [SparkFun MicroMod ESP32 processor](https://www.sparkfun.com/products/16781)
 and
 [Weather Meter Kit](https://www.sparkfun.com/products/15901).
 
-## 1. Set up your Computer with the Arduino IDE
+You should already have followed the instructions in the main README.md
+for this repository to assemble your SparkFun weather kit.  Here we will
+set up the software environment and upload software to get your kit 
+operational.
 
-Download and install the Arduino IDE app, which allows you to write and
-upload software (*sketches*) to the processor in the weather kit.
-
-* Macs: [https://www.arduino.cc/en/software](Download),
-open, and move the app to your Applications folder.
-* Windows: [Download via SparkFun](https://learn.sparkfun.com/tutorials/installing-arduino-ide#windows) and follow the directions at the download page.
-
-## 2. Set up Arduino IDE to upload to Carrier Board
+## 1. Set up Arduino IDE to connect and upload to Carrier Board
 
 In the Arduino IDE app you'll need to specify the processor you are using
 (what we installed on the Carrier board) and the port (of your computer) that
@@ -40,14 +26,14 @@ These instructions match the MacOS version of the Arduino IDE,
 where the menus are slightly different from
 the PC version but should be straightforward to follow there.
 
-### 2.1 Set up the Arduino IDE board manager
+### 1.1 Set up the Arduino IDE board manager
 In the Arduino IDE app, pull down the **Tools** menu to **Boards** and
 slide right to select **Board Manager**. This will pull up a navigation
 bar along the left side of the Arduino IDE app window with an
 alphabetical list of items available to install. Scroll down to
 **esp32 by Espressif Systems** and hit the green **INSTALL**  button.
 
-### 2.2 Add ESP32 boards library
+### 1.2 Add ESP32 boards library
 Pull down to **Settings**. This will open a **Preferences** window.
 At the bottom of that window where it says **Additional boards manager URLS:**
 you need to paste in the URL below.  If there is already a URL in the window,
@@ -55,22 +41,22 @@ select the green button on the far right of the entry box for pasting and
 add this URL as a line after the one(s) already there.
 **https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json**
 
-### 2.3 Plug the carrier board into your computer via USB
+### 1.3 Plug the carrier board into your computer via USB
 Now quit and reopen the Arduino IDE app, plug the Carrier Board into your
 computer via USB.
 
-### 2.4 Set the Board 
+### 1.4 Set the Board 
 In the Arduino IDE, pull down **Tools** to **Board** and slide
 right to select **ESP32**. Slide
 right again from there and select **SparkFun ESP32 MicroMod** (or, if you have
 a different processor, select the one that matches yours).
 
-### 2.5 Set the Port
+### 1.5 Set the Port
 Pull down the **Tools** menu again and select the option that begins
 with **dev/cu.usbserial-nnn** (where *nnnn* will vary between computers,
 and may be different on PC).
 
-### 2.6 Test
+### 1.6 Test
 Finally, run a test program to make sure all of the above is set up and you
 can upload software (*sketches*) to your board. In the Arduino IDE app,
 pull down **File** to **Examples**, slide right to
@@ -99,12 +85,12 @@ to your carrier board.
 If you have successfully completed all steps to this point you should see
 the blue LED blinking on/off for 1s intervals.
 
-## 3. Set up and Run the Weather Station Code
+## 2. Set up and Run the Weather Station Code
 
 Now that we are able to upload sketches to the carrier board we can install
 the necessary libraries and software to make the Weather Station operational.
 
-### 3.1 Install Sensor Libraries
+### 2.1 Install Sensor Libraries
 
 We need to install some libraries for the weather station sensors.
 In the Arduino IDE app, select **Tools -> Manage Libraries**.
@@ -122,7 +108,7 @@ dependencies, and you want to always say yes to this:
 
 Quit/restart the Arduino IDE app just for good measure.
 
-### 3.2 Load the Weather Station Code
+### 2.2 Load the Weather Station Code
 
 The file **WeatherStaion.ino** is the sketch that we need. Select it and you'll
 see about 120 lines of code (the sketch) and just above the
@@ -135,7 +121,7 @@ folder named "WeatherStation".  Create this folder, move the file,
 and continue?"*
 Select "OK" and let the IDE set it up for you.
 
-### 3.3 Set up your local WiFi and MQTT secrets
+### 2.3 Set up your local WiFi and MQTT secrets
 
 Make a copy of the *secrets-template.h* file and name it *secrets.h*.
 Edit it to substitute your local specifics for WiFi and MQTT access into
@@ -145,7 +131,7 @@ Home Assistant you'll find some instructions for MQTT setup
 There are also some tips on MQTT setup 
 [here](https://github.com/cecat/Lake-Watch).
 
-### 3.4 Compile/Upload/Run the Sketch.
+### 2.4 Compile/Upload/Run the Sketch.
 
 In the Arduion IDE, hit the right-arrow button (top left portion of the
 sketch window) to compile and upload this sketch to your carrier board.

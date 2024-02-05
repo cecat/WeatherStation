@@ -1,22 +1,18 @@
 # ideaSpark Weather Kit
 
-This repository replaces the instruction manual for
-the [ideaSpark Weather Station](https://gitlab.com/GJKJ/WSK).
-
-You'll still want to download the Guide_Manual.. doc file
-from the ideaSpark repo and unzip it as some of the figures are helpful
-(though note that the Arduino IDE images are from Windows, where the
-menus are slighly different than on a Mac).
+These instructions are for a generic ESP8266 weather kit for Arduino sold by
+[multiple vendors](https://www.amazon.com/Mustpoint-Arduino-ESP8266-Weather-Tutorial/dp/B0BGHTD5M9/ref=sr_1_2?crid=30SF0VVSG1G7Q).  Some come with a QR code pointing to
+a not-very-helpful manual but there is a
+[getting started guide](https://www.amazon.com/ESP8266-Weather-Station-Getting-Started-ebook/dp/B01LFX8Z5W/ref=sr_1_3?crid=CWIBWFT59Q82)
+written by [Daniel Eichhorn](https://github.com/squix78)
+that you can get for Kindle that looks *very* good (as do his
+[github repositories](https://github.com/squix78)).
 
 The instructions here are tested only on a Mac.
 using a MacBook with Apple silicon (M2).
 
-If you have already set up the SparkFun Weather Station Kit
-and gotten it running you'll already have done several of the steps
-below.  You can skip step 2 in this case.
-
-February 2024
-CeCat
+If you have already set up your Arduino IDE then you can skip ahead to
+Step **2: Set up Arduino IDE for the ESP8266 Board**
 
 --------------------
 

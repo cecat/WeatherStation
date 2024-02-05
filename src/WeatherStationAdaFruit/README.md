@@ -1,21 +1,20 @@
 # SparkFun WeatherStation with MQTT for AdaFruit MQTT Service
 
-You should already have followed the instructions in the main README.md
-for this repository to aseemble your SparkFun weather kit.  Here we will
-set up the software environment and upload software to get your kit 
-operations.
-
-*If you've already set up your kit with the Arduino IDE and are here
-to switch from the HA to the AdaFruit version then you can skip to 
-Step **3. Set up and Run the Weather Station Code**.
-
-
-SparkFun weather station
+Setting up the software for the SparkFun weather station
 ([MicroMod Weather Carrier Board](https://www.sparkfun.com/products/16794)
 with
 [SparkFun MicroMod ESP32 processor](https://www.sparkfun.com/products/16781)
 and
 [Weather Meter Kit](https://www.sparkfun.com/products/15901).
+
+You should already have followed the instructions in the main README.md
+for this repository to assemble your SparkFun weather kit.  Here we will
+set up the software environment and upload software to get your kit 
+operational.
+
+*If you've already set up the Arduino IDE for a similar project
+then you can skip to Step **3. Set up and Run the Weather Station Code**.
+
 
 ## 1. Set up your Computer with the Arduino IDE
 

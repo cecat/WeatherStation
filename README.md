@@ -58,7 +58,7 @@ weather kit(s).  You will need to
 app set up on your computer
 (the src folder).
 
-## Using thse codes
+## Using these codes
 
 Once you have completed the assembly and Arduino IDE set up you're ready to
 Install the libraries and software you need.
