@@ -1,8 +1,8 @@
-# ideaSpark Weather Kit
+# Generic ESP8266 Weather Kit
 
 These instructions are for a generic ESP8266 weather kit for Arduino sold by
 [multiple vendors](https://www.amazon.com/Mustpoint-Arduino-ESP8266-Weather-Tutorial/dp/B0BGHTD5M9/ref=sr_1_2?crid=30SF0VVSG1G7Q).  Some come with a QR code pointing to
-a not-very-helpful manual but there is a
+a not-very-helpful manual from a group called 'ideaSpark' but there is a
 [getting started guide](https://www.amazon.com/ESP8266-Weather-Station-Getting-Started-ebook/dp/B01LFX8Z5W/ref=sr_1_3?crid=CWIBWFT59Q82)
 written by [Daniel Eichhorn](https://github.com/squix78)
 that you can get for Kindle that looks *very* good (as do his
@@ -11,12 +11,12 @@ that you can get for Kindle that looks *very* good (as do his
 The instructions here are tested only on a Mac.
 using a MacBook with Apple silicon (M2).
 
-If you have already followed the instructions in the
+At this point you should have already followed the instructions in the
 [dev/ideaSpark](https://github.com/cecat/WeatherStation/tree/main/dev/ideaSpark)
 directory to assemble your hardware, and the startup instructions in
 the main 
 [src](https://github.com/cecat/WeatherStation/tree/main/src)
-directory to isntall drivers and the Arduino IDE on your computer.
+directory to install drivers and the Arduino IDE on your computer.
 
 ## 1. Set up Arduino IDE to connect and upload to the ESP8266 processor
 
@@ -29,7 +29,7 @@ select the green icon to the right of the
 
 Add a line to this window (below any existing lines), pasting in:
 
-**http://arduino.esp8266.com/stable/package_esp8266com_index.json**
+"**http://arduino.esp8266.com/stable/package_esp8266com_index.json**"
 
 ### 1.2 Install new boards drivers
 
@@ -42,7 +42,7 @@ item will have the name of that board...we are about to change it.)
 
 This will open a menu bar to the left of your Sketch window.
 In the search bar type **ESP8266** and you should see one result:
-*ESP8266 by ESP8266 Community.*
+**ESP8266 by ESP8266 Community**.
 
 Hit the green **INSTALL** button and you'll see an output window appear
 at the bottom of your sketch window where you can watch the isntall
@@ -53,12 +53,12 @@ no errors to the contrary in the output window).
 ### 1.3 Select the board
 
 Now, go back to the 
-*Tools -> Board* menu and select *-> ESP8266* then 
+*.Tools -> Board*. menu and select *.-> ESP8266*. then 
 from the list of boards there select **NodeMCU 1.0 (ESP-12E Module)**.
 
 ### 1.4 Set the Port 
 
-In *Tools->Port*, select **dev/cu.usbserieal-nnnn** where *nnnn* is a
+In *.Tools->Port*., select **dev/cu.usbserieal-nnnn** where *nnnn* is a
 four-digit number.
 
 ### 1.5 Test
@@ -98,21 +98,63 @@ is a "<> Code" button that yields a pull-down menu of options, including "Downlo
 After downloading, in your Arduino IDE, Select from the top menubar "Sketch -> Include Zip Library"
 and then navigate to your downloads folder and select the downloaded zip file (SFE_BMP180-master.zip).
 
+Quit/restart the Arduino IDE app just for good measure.
 
-## Download the weather code .ino in this folder.
+## 3. Load the ideaSpark Weather Station Code
 
-### Test
+The file **ideaSpark.ino** is the sketch that we need. Select it and you'll
+see about 120 lines of code (the sketch) and just above the
+code is a menu bar. Off to the 
+right is a download icon. Download and move the file to
+a folder on your machine where you'll keep your code, then open it from
+the Arduino IDE. The Arduino IDE will tell you that
+*"The file "ideaSpark.ino" needs to be inside a sketch
+folder named "ideaSpark".  Create this folder, move the file,
+and continue?"*
+Select "OK" and let the IDE set it up for you.
 
-The code should now compile without errors.  You can check this without
-the board installed using the Arduino IDE. In the sketch window there is
-a 'check  mark' icon in hte upper left to just compile
-the sketch.  This is just to the left of the 'right arrow' icon
-which is to compile and upload to the board.
+## 4 Set up your local WiFi and MQTT secrets
 
-If you get any errors indicating that there is a missing xyz.h file
-that means you did not get the right libraries, so must have missed
-a step above (or that the instructions are incorrect).  Try searching
-in the Libraries tab for the "xyz" part of the "xyz.h" in
-the error message.
+Make a copy of the *secrets-template.h* file and name it *secrets.h*.
+Edit it to substitute your local specifics for WiFi and MQTT access into
+the appropriate placeholders in the template.
 
+### Home Assistant
+For Home Assistant you'll find some instructions for MQTT setup
+[here](https://github.com/cecat/UtilityWatchMQTT/tree/main/HASS).
+There are also some tips on MQTT setup
+[here](https://github.com/cecat/Lake-Watch).
 
+### AdaFruit
+Now you're going to need some information from a (free) account
+you need to set up at
+[io.adafruit.com](io.adafruit.com). Once you create the account there,
+going to io.adafruit.com and logging in will land you at a dashboard.
+From the dashboard page, click on the round yellow 
+icon with a key in it on the upper right of the dashboard window
+at [io.adafruit.com](io.adafruit.com).  There you will find some
+API keys.  Copy the two #define lines in the Arduino code sample
+window and paste them at the end of your secrets.h file
+(deleting the placeholder lines).
+
+## 5 Compile/Upload/Run the Sketch.
+
+In the Arduion IDE, hit the right-arrow button (top left portion of the
+sketch window) to compile and upload this sketch to your carrier board.
+If everything above has been done correctly (and these instructions
+are correct), an output pane will appear below
+the sketch scrolling compile and upload progress  
+and then reboots the carrier board to get the code running.
+
+Once the compile/upload is finished, open the Serial Monitor
+pane by selecting the icon (looks like a magnifying glass) in the
+upper right of the sketch window. 
+
+At this point, the Serial Monitor pane should now show a scrolling
+set of reports with temperature, atmospheric pressure, relative humidity,
+and light intensity.  If it shows
+gibberish make sure that in the upper right of the Serial Monitor pane
+it says 115200 baud.  If the baud rate is correctly set and you are
+still seeing gibberish, try pressing the RESET button on the carrier board
+or unplugging the USB cable then plugging back in.  Either of these
+*should* get the serial window to display correctly.
