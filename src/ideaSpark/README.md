@@ -53,12 +53,12 @@ no errors to the contrary in the output window).
 ### 1.3 Select the board
 
 Now, go back to the 
-*.Tools -> Board*. menu and select *.-> ESP8266*. then 
+**Tools -> Board** menu and select **-> ESP8266** then 
 from the list of boards there select **NodeMCU 1.0 (ESP-12E Module)**.
 
 ### 1.4 Set the Port 
 
-In *.Tools->Port*., select **dev/cu.usbserieal-nnnn** where *nnnn* is a
+In **Tools->Port**, select **dev/cu.usbserieal-nnnn** where *nnnn* is a
 four-digit number.
 
 ### 1.5 Test
@@ -92,11 +92,14 @@ The final library needed, SFE_BMP180, will have to be installed manually.
 
 Navigate to 
 [https://github.com/LowPowerLab/SFE_BMP180](https://github.com/LowPowerLab/SFE_BMP180) 
-and download the library as a zip file.  To do this: toward the top, just left of "About"
-is a "<> Code" button that yields a pull-down menu of options, including "Download Zip."
+and download the library as a zip file.  To do this: toward the top,
+just left of **About** is a **<> Code** button that yields a
+pull-down menu of options, including **Download Zip**.
 
-After downloading, in your Arduino IDE, Select from the top menubar "Sketch -> Include Zip Library"
-and then navigate to your downloads folder and select the downloaded zip file (SFE_BMP180-master.zip).
+After downloading, in your Arduino IDE, Select from the
+top menubar **Sketch -> Include Zip Library**
+and then navigate to your downloads folder and select the
+downloaded zip file (**SFE_BMP180-master.zip**).
 
 Quit/restart the Arduino IDE app just for good measure.
 
@@ -143,7 +146,7 @@ In the Arduion IDE, hit the right-arrow button (top left portion of the
 sketch window) to compile and upload this sketch to your carrier board.
 If everything above has been done correctly (and these instructions
 are correct), an output pane will appear below
-the sketch scrolling compile and upload progress  
+the sketch scrolling compile and upload progress
 and then reboots the carrier board to get the code running.
 
 Once the compile/upload is finished, open the Serial Monitor
