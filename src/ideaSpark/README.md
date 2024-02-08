@@ -106,10 +106,11 @@ Quit/restart the Arduino IDE app just for good measure.
 ## 3. Load the ideaSpark Weather Station Code
 
 The file **ideaSpark.ino** is the sketch that we need. Select it and you'll
-see about 120 lines of code (the sketch) and just above the
-code is a menu bar. Off to the 
-right is a download icon. Download and move the file to
-a folder on your machine where you'll keep your code, then open it from
+see about 180 lines of code (the sketch). Just above the
+code is a menu bar, and off to the 
+right is a **download icon**.
+Download the .ino file and move it to
+a folder on your machine where you keep your code. Now open it from
 the Arduino IDE. The Arduino IDE will tell you that
 *"The file "ideaSpark.ino" needs to be inside a sketch
 folder named "ideaSpark".  Create this folder, move the file,
@@ -156,7 +157,8 @@ upper right of the sketch window.
 At this point, the Serial Monitor pane should now show a scrolling
 set of reports with temperature, atmospheric pressure, relative humidity,
 and light intensity.  If it shows
-gibberish make sure that in the upper right of the Serial Monitor pane
+gibberish and does not correct itself aftr a few seconds,
+make sure that in the upper right of the Serial Monitor pane
 it says 115200 baud.  If the baud rate is correctly set and you are
 still seeing gibberish, try pressing the RESET button on the carrier board
 or unplugging the USB cable then plugging back in.  Either of these

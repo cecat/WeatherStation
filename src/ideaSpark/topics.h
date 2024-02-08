@@ -16,6 +16,16 @@
 
   */
 
+// MQTT AdaFruit server
+#define AIO_SERVER "io.adafruit.com"
+#define AIO_SERVERPORT 8883
+
+/*  Going without security so yes, we might connect and give away our precious weather
+    information to a site masqueriading as io.adafruit.com.  I gave up trying to make
+    SSL certs work with the ESP8266 but others are welcome to give it a try!
+ */
+std::unique_ptr<BearSSL::WiFiClientSecure> espClient(new BearSSL::WiFiClientSecure());
+Adafruit_MQTT_Client mqtt(espClient.get(), AIO_SERVER, AIO_SERVERPORT, AIO_USERNAME, AIO_KEY);
 
 /******************* Config struct for configuration ********************/
 
@@ -44,7 +54,8 @@
  */
 struct SensorConfig {
     int sensorIndex;      // arbitrary indexing to determine how to read;
-                          // must put the proper sampling code in the switch statement
+                          // make sure to put the proper sampling code in the 
+                          // readSensors() switch statement
     String sensorName;    // sensor or package name (to look up datasheet)
     String sensorVar;     // sensor measurement name
     float sensorReading;  // latest reading from this sensor
@@ -53,10 +64,14 @@ struct SensorConfig {
 /************************* DEVICE CONFIG *********************/
 
 /************************* Hardware **************************/
-//Hardware pin assignments
-const byte WSPEED = 14;     //Digital I/O pin for wind speed
-const byte WDIR   = 35;     //Analog pin for wind direction
-const byte RAIN   = 27;     //Digital I/O pin for rain fall
+#define ALTITUDE 215.0 // Altitude of Naperville, IL (meters)
+#define SCREEN_WIDTH 128 // OLED display width, in pixels
+#define SCREEN_HEIGHT 64 // OLED display height, in pixels
+
+// For I2C pin assignments see Wire.begin() in setup()
+#define DHTPIN  14     // Digital pin connected to the DHT sensor as D5
+#define DHTTYPE DHT11   // DHT 11
+
 
 /************************** Feeds *****************************/
 /*  I have tried multiple strategies to define these from our 
@@ -72,39 +87,24 @@ const byte RAIN   = 27;     //Digital I/O pin for rain fall
          corresponding GROUP at io.adafruit.com for your feeds, then
          replace "waggletest" with your group name.
  */
-Adafruit_MQTT_Publish rainFeed = 
-    Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/waggletest.rain");
-Adafruit_MQTT_Publish wind_dirFeed = 
-    Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/waggletest.winddir");
-Adafruit_MQTT_Publish wind_speedFeed = 
-    Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/waggletest.windspeed");
-Adafruit_MQTT_Publish soilFeed =  
-    Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/waggletest.soil");
+Adafruit_MQTT_Publish tempFeed = 
+    Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/waggletest.temp");
+Adafruit_MQTT_Publish relhumFeed = 
+    Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/waggletest.relhum");
+Adafruit_MQTT_Publish atmpreFeed = 
+    Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/waggletest.atmpre");
+Adafruit_MQTT_Publish lightFeed =  
+    Adafruit_MQTT_Publish(&mqtt, AIO_USERNAME "/feeds/waggletest.light");
 
 /********************* SENSOR CONFIGURATION ********************************/
 
 // Configuration for this device
 SensorConfig sensorArray[] = {
-    {0, "CN",     "rain",       0.0 },          
-    {1, "CN",     "wind_dir",   0.0 },  
-    {2, "CN",     "wind_speed", 0.0 },   
-    {3, "AS3935", "soil",       0.0 }
+    {0, "DHT11",     "temperature",     0.0 },          
+    {1, "DHT11",     "rel_humidity",    0.0 },  
+    {2, "BMP180",    "atm_pressure",    0.0 },   
+    {3, "BH1750",    "light_intensity", 0.0 }
 };
-
-/* Other sensors that we expect - move into the
-   SensorConfig array list above, making sure to align the sensorIndex
-   with the code/functions for sampling/reading and reporting.
-   (also make sure to include their pin assigments above in 
-   "*** Hardware ***")
-
-    {4, "AS3935",  "Lightning",           0.0 },
-    {5, "VEML075", "UVA",                 0.0 },
-    {6, "VEML075", "UVB",                 0.0 },
-    {7, "BME280",  "RelativeHumidity",    0.0 },
-    {8, "BME280",  "Temperature",         0.0 },
-    {9, "bME280",  "BarometricPressure",  0.0 },
-
- */
 
 const int sensorArraySize = sizeof(sensorArray) / sizeof(sensorArray[0]);
 
