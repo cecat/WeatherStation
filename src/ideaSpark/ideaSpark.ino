@@ -59,7 +59,8 @@ void setup(){
   Serial.begin(115200);
   delay(1500); // time to fiddle with serial window issues
   pinMode(LED_BUILTIN, OUTPUT);
-
+  // test flashLED
+  flashLed (250, 250, 10);
   Serial.println("Connecting to WiFi");
 
   // Connect to WiFi
@@ -74,10 +75,7 @@ void setup(){
     Serial.println("IP address: "); Serial.println(WiFi.localIP());
   } else {
     Serial.println("WiFi COULD NOT CONNECT");
-    while (1) {
-      digitalWrite(LED_BUILTIN, HIGH); delay(500);
-      digitalWrite(LED_BUILTIN, LOW ); delay(500);
-    }
+    flashLed (500, 500, 0);  // wedged
   }
 
   // Connect to MQTT
@@ -128,7 +126,8 @@ void setup(){
 }
 
 void loop() {
-
+// test flashLed  
+  flashLed(250,250,10);
   if (goTime) {
     MQTT_connect();
     readSensors();
@@ -248,11 +247,6 @@ void displayValues() {
   display.print(pres);
   display.print(" P");
   display.display();
-  //blink waiting for 5 seconds
-  for (int k=0; k<5; k++){
-    digitalWrite(LED_BUILTIN, HIGH); delay(750);
-    digitalWrite(LED_BUILTIN, LOW ); delay(250);
-  }
 }
 /* I don't like the inefficiency here but have not figured out how to get the feedname
     into the sensorConfig struct without jumping through hoops that risk memory mgmt
@@ -305,14 +299,30 @@ void MQTT_connect() {
     mqtt.disconnect();
     delay(2500);  // wait 2.5 seconds
     if (connectTries++ > 10) {
-       Serial.println("Giving up on MQTT...");
-      while(1) { // Pause blinking fast forever.
-        digitalWrite(LED_BUILTIN, HIGH); delay(250);
-        digitalWrite(LED_BUILTIN, LOW ); delay(250);
-      }
-      return;
+      Serial.println("Giving up on MQTT...");
+      flashLed(250, 250, 0);
+      return; // will never reach here but I feel better having it
     }
   }
   Serial.println("MQTT Connected!");
 }
 
+/* Blink the built-in LED 
+ */
+void flashLed (int on, int off, int count) {
+  // omitting count will mean "wedge here and blink until you lose power"
+  if (count >0) {
+    for (int k=0; k<count; k++){
+      digitalWrite(LED_BUILTIN, HIGH); delay(on);
+      digitalWrite(LED_BUILTIN, LOW ); delay(off);
+    }
+  } else {
+    Serial.println("Wedging");
+    while (1) {
+      for (int k=0; k<count; k++){
+        digitalWrite(LED_BUILTIN, HIGH); delay(on);
+        digitalWrite(LED_BUILTIN, LOW ); delay(off);
+      }
+    }
+  }
+}
