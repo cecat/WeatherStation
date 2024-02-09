@@ -70,5 +70,5 @@ Yellow=SDA, White=SCL, and Blue=OUT on the DHT11.
 	* GND <----> G
 
 Image of the wired-up breadboard::<br>
-![wired breadboard](genericESP8266/GenericESP8266wiring.jpeg)
+![wired breadboard](GenericESP8266wiring.jpeg)
 
