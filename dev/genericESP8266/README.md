@@ -70,5 +70,5 @@ Yellow=SDA, White=SCL, and Blue=OUT on the DHT11.
 	* GND <----> G
 
 Image of the wired-up breadboard::<br>
-![wired breadboard](/GenericESP8266wiring.jpeg)
+![wired breadboard](https://github.com/cecat/WeatherStation/blob/main/dev/genericESP8266/GenericESP8266wiring.jpeg)
 
