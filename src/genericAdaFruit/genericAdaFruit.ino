@@ -59,8 +59,7 @@ void setup(){
   Serial.begin(115200);
   delay(1500); // time to fiddle with serial window issues
   pinMode(LED_BUILTIN, OUTPUT);
-  // test flashLED
-  flashLed (250, 250, 10);
+ 
   Serial.println("Connecting to WiFi");
 
   // Connect to WiFi
@@ -82,7 +81,7 @@ void setup(){
   Serial.print("Connecting to MQTT... ");
   espClient->setInsecure();
   int8_t ret;
-  // Stop if already connected.
+  // Stop if already connected (this should actually never happen...)
   if (mqtt.connected()) {
     Serial.println("Already connected!");
     return;
@@ -97,8 +96,8 @@ void setup(){
   Serial.println("MQTT Connected!");
 
   // Initialize the sensors and OLED display
-  //Wire.begin();       // if you used the default pins D1 for SCL and D2 for SDA
-  Wire.begin(D3, D4);   // if you used D3 for SDA and D4 for SCL
+  // Wire.begin();       // default pins D1 for SCL and D2 for SDA 
+  Wire.begin(D3, D4);   // (D3, D4) if you used D3 for SDA and D4 for SCL
   dht.begin();
   lightMeter.begin();
   lightMeter.configure(BH1750::CONTINUOUS_HIGH_RES_MODE_2);
@@ -126,9 +125,8 @@ void setup(){
 }
 
 void loop() {
-// test flashLed  
-  flashLed(250,250,10);
-  if (goTime) {
+
+  if (goTime) { 
     MQTT_connect();
     readSensors();
     publishSensorData();
@@ -300,7 +298,7 @@ void MQTT_connect() {
     delay(2500);  // wait 2.5 seconds
     if (connectTries++ > 10) {
       Serial.println("Giving up on MQTT...");
-      flashLed(250, 250, 0);
+      flashLed(250, 250, 0); // wedged
       return; // will never reach here but I feel better having it
     }
   }
@@ -308,20 +306,22 @@ void MQTT_connect() {
 }
 
 /* Blink the built-in LED 
+    On the ESP8266, HIGH and LOW are opposite of other platforms
+    so HIGH means off and LOW means on.  
  */
 void flashLed (int on, int off, int count) {
   // omitting count will mean "wedge here and blink until you lose power"
   if (count >0) {
     for (int k=0; k<count; k++){
-      digitalWrite(LED_BUILTIN, HIGH); delay(on);
-      digitalWrite(LED_BUILTIN, LOW ); delay(off);
+      digitalWrite(LED_BUILTIN, LOW); delay(on);
+      digitalWrite(LED_BUILTIN, HIGH ); delay(off); 
     }
   } else {
     Serial.println("Wedging");
     while (1) {
       for (int k=0; k<count; k++){
-        digitalWrite(LED_BUILTIN, HIGH); delay(on);
-        digitalWrite(LED_BUILTIN, LOW ); delay(off);
+        digitalWrite(LED_BUILTIN, LOW); delay(on);
+        digitalWrite(LED_BUILTIN, HIGH ); delay(off);
       }
     }
   }

@@ -19,23 +19,25 @@ a not-very-helpful manual but there is a
 [getting started guide](https://www.amazon.com/ESP8266-Weather-Station-Getting-Started-ebook/dp/B01LFX8Z5W/ref=sr_1_3?crid=CWIBWFT59Q82)
 written by [Daniel Eichhorn](https://github.com/squix78)
 that you can get for Kindle that looks *very* good (as do his
-[github repositories](https://github.com/squix78)).
-
-In both cases above, it might be helpful to go through this quickstart
-and then dive into the SparkFun tutorials and the Eichhorn Kindle book.
-Or if your goal is to learn how to hack hardware and software then
-by all means skip this and use those sources.
+[github repositories](https://github.com/squix78)). There is also a nice guide
+from ThingPulse where they use the same hardware here (minus the BMP180) for
+their 
+[ESP8266 IoT Starter Kit](https://docs.thingpulse.com/guides/iot-starter-kit/).
+There you'll also find a 
+[downloadable PDF manual](https://blog.squix.org/weatherstation-guide)
+if you want to explore the kit in more depth, similar to Eichhorn's book.
 
 ## Dependencies
 
 There are two sets of sketches here (two for each of the stations).
-One set uses MQTT/WiFi to communicate with 
+
+### SparkFun Weather Kit
+The Home Assistant (HA) version uses MQTT/WiFi to communicate with 
 [Home Assistant](https://www.home-assistant.io/). The other uses the
 AdaFruit MQTT library that commuincates with the MQTT broker
 service at [io.adafruit.com](https://io.adafruit.com/).
 
-The Home Assistant version of the code uses the
-WiFi/MQTT library
+The HA version also uses the WiFi/MQTT library
 [EspMQTTClient](https://github.com/plapointe6/EspMQTTClient)
 by @plapointe6.
 The AdaFruit version uses the
@@ -47,6 +49,9 @@ Both SparkFun sketches also borrow from the *SparkFun Weather Station Carrier Bo
 [example codes](https://github.com/sparkfun/MicroMod_Weather_Carrier_Board/). 
 The timer functions were nicely documented in a short tutorial in
 [Circuit Digest](https://circuitdigest.com/microcontroller-projects/esp32-timers-and-timer-interrupts).
+
+### Generic ESP8266 Kit
+*under construction*
 
 # Getting Started
 
