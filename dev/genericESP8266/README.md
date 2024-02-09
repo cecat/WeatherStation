@@ -1,7 +1,12 @@
 # Assembling the Generic ESP8266 Weather Kit
 
 These kits require some soldering to put headers onto several of the
-sensors. Once you've done that, you're ready to assemble.
+sensors. Once you've done that, you're ready to assemble.  Some kits
+have a QR code pointing to an 
+[IdeaSpark github repository](https://gitlab.com/GJKJ/WSK)
+(the associated organization has a defunct webstore)
+where there is a downloadable DOC file with instructions.
+I do not recommend trying to follow it, though it has some nice images.
 
 Note first that the ESP8266 processor board is too wide
 to straddle the middle channel on the breadboards that
@@ -69,6 +74,11 @@ Yellow=SDA, White=SCL, and Blue=OUT on the DHT11.
 	* VCC <----> 3V
 	* GND <----> G
 
-Image of the wired-up breadboard::<br>
+Image of the wired-up breadboard:<br>
 ![wired breadboard](GenericESP8266wiring.jpeg)
+
+Fritzing diagram:<br>
+![wired breadboard](genericESP8266fritzing.png)
+
+
 
