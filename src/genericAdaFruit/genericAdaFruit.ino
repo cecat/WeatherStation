@@ -74,24 +74,19 @@ void setup(){
     Serial.println("IP address: "); Serial.println(WiFi.localIP());
   } else {
     Serial.println("WiFi COULD NOT CONNECT");
-    flashLed (500, 500, 0);  // wedged
+    //flashLed (500, 500, 0);  // wedged
   }
 
   // Connect to MQTT
   Serial.print("Connecting to MQTT... ");
   espClient->setInsecure();
   int8_t ret;
-  // Stop if already connected (this should actually never happen...)
-  if (mqtt.connected()) {
-    Serial.println("Already connected!");
-    return;
-  }
   while ((ret = mqtt.connect()) != 0) { // connect will return 0 for connected
       Serial.println(mqtt.connectErrorString(ret));
       Serial.println(mqtt.connectErrorString(ret)); // Print the error message
       Serial.println("Retrying MQTT connection in 5 seconds...");
       mqtt.disconnect();
-      delay(5000);  // wait 5 seconds
+      delay(5000);  // wait 5 seconds...forever
   }
   Serial.println("MQTT Connected!");
 
@@ -102,18 +97,18 @@ void setup(){
   lightMeter.begin();
   lightMeter.configure(BH1750::CONTINUOUS_HIGH_RES_MODE_2);
   if (!pressure.begin()){
-    Serial.println("BMP180 init fail. Proceeding without it. Ignore pressure readings.\n\n");
+    Serial.println("BMP180 init failed. Proceeding without it. Ignore pressure readings.");
     delay(2000);
   }
   if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { // Its works for my 128x64 OLED 0,96" screen
-    Serial.println(F("SSD1306 allocation failed...proceeding without the OLED display"));
+    Serial.println(F("SSD1306 allocation failed. Proceeding without the OLED display."));
   }
   display.clearDisplay();
   display.setTextSize(1); //1-8; 1 is default, not needed
   display.setTextColor(WHITE); // Not relevant for one or two color OLED display but needed for the code
   display.setCursor(0,0); //0,0 to 120,57
   display.println("Welcome to ");
-  display.println("WaggleWorld!!!!");
+  display.println("  WaggleWorld!!!!");
   display.display();
   delay(2000);
   display.clearDisplay();
@@ -121,7 +116,6 @@ void setup(){
   weatherTicker.attach_ms(weatherCheckFreq, onNudge); // start our timer for regular reporting
 
   Serial.println(F("Setup Complete"));     
-
 }
 
 void loop() {
@@ -134,9 +128,9 @@ void loop() {
     goTime = false;
   }
 
-
 }
-/* CeC: This is not very efficient but assumes each individual
+
+/* CeC: This is quite inefficient but assumes each individual
         sensor has a unique code for sampling...
  */
 void readSensors() {
@@ -177,7 +171,7 @@ void readSensors() {
 
 /*  
   Display the sensor values on the OLED screen
-  and serial out as well
+  and print to serial out
  */
 void displayValues() {
   String temp, humi, pres, lux;
@@ -287,7 +281,7 @@ void MQTT_connect() {
     return;
   }
 
-  Serial.print("Connecting to MQTT... ");
+  Serial.print("Reconnecting to MQTT... ");
 
   int connectTries = 0;
   while ((ret = mqtt.connect()) != 0) { // connect will return 0 for connected
@@ -297,17 +291,18 @@ void MQTT_connect() {
     mqtt.disconnect();
     delay(2500);  // wait 2.5 seconds
     if (connectTries++ > 10) {
-      Serial.println("Giving up on MQTT...");
-      flashLed(250, 250, 0); // wedged
-      return; // will never reach here but I feel better having it
-    }
+      Serial.println("Giving up on MQTT after 10 attempts.");
+      //flashLed(250, 250, 0); // wedged
+      return; 
   }
-  Serial.println("MQTT Connected!");
+  Serial.println("MQTT Reconnected!");
 }
 
 /* Blink the built-in LED 
     On the ESP8266, HIGH and LOW are opposite of other platforms
     so HIGH means off and LOW means on.  
+    THIS is not used but I've left it just in case someone
+    figures out how to avoid using D4 (LED_BUILTIN) for I2C...
  */
 void flashLed (int on, int off, int count) {
   // omitting count will mean "wedge here and blink until you lose power"
