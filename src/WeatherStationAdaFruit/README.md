@@ -1,11 +1,13 @@
 # SparkFun WeatherStation with MQTT for AdaFruit MQTT Service
 
-Setting up the software for the SparkFun weather station
+Here we will up the software for the SparkFun weather station
 ([MicroMod Weather Carrier Board](https://www.sparkfun.com/products/16794)
 with
 [SparkFun MicroMod ESP32 processor](https://www.sparkfun.com/products/16781)
 and
-[Weather Meter Kit](https://www.sparkfun.com/products/15901).
+[Weather Meter Kit](https://www.sparkfun.com/products/15901) to report
+weather data to
+[AdaFruit's free MQTT service](io.adafruit.com)..
 
 You should already have followed the instructions in the 
 [dev](https://github.com/cecat/WeatherStation/tree/main/dev) directory

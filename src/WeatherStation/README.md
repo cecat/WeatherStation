@@ -1,11 +1,16 @@
 # SparkFun WeatherStation with MQTT for Home Assistant (HA) Integration
 
-Setting up the software for the SparkFun weather station
+Here we will set up the software for the SparkFun weather station
 ([MicroMod Weather Carrier Board](https://www.sparkfun.com/products/16794)
 with
 [SparkFun MicroMod ESP32 processor](https://www.sparkfun.com/products/16781)
 and
-[Weather Meter Kit](https://www.sparkfun.com/products/15901).
+[Weather Meter Kit](https://www.sparkfun.com/products/15901) to report
+weather data to a Home Assistant (HA) server. This assumes that you have
+a HA server operating already and serving as an MQTT broker. If not, then
+you should get that set up first.
+(there are some getting started materials in
+[this blog](https://blog.deepblueberry.com/)).
 
 You should already have followed the instructions in the 
 [dev](https://github.com/cecat/WeatherStation/tree/main/dev) directory
