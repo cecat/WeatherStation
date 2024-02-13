@@ -18,14 +18,27 @@ D0, D1....G, 3V.
 There are a few helpful guides for wiring this up. The wiring pin
 assignments below will work with the code here. 
 
-This code uses pins D3 and D4 for the I2C SCL/SCA connections.
-While the default for the I2C libraries is to use D1 and D2 on
-the ESP8266 I was unable to make this work via the default
-Wire.begin() call nor explicitly specifying the pins in the
-call (maybe I have a hardware issue...lmk if you make it work
-with default pins!).  The downside of using
-D4 is that this is also the LED_BUILTIN pin, so I'm not able
-to do any clever signaling with the LED..
+### I2C and this Kit
+
+The OLED and two of the sensors use 
+[I2C](https://learn.sparkfun.com/tutorials/i2c/all).
+The code here uses pins **D3** and **D4** for the I2C
+SCL and SCA connections.
+The *default* for the I2C libraries is to use *D1* and *D2* but
+on the ESP8266 I was unable to make this work. In the code,
+the command **Wire.begin();** is where you specify the ports,
+and I tried allowing the default **Wire.begin()** call,
+nor explicitly specifying the pins in as well as explicitly
+assigning them via **Wire.begin(D1, D2);** to no avail.
+
+So the guide below uses D3 and D4, with the corresponding call
+(in *setup()*) **Wire.begin(D3, D4);**.
+
+The downside of using D4 is that this is also the LED_BUILTIN pin,
+so I'm not able to do any clever signaling with the LED..
+
+(it could be that I have a hardware issue...lmk if you make it work
+with default pins!).
 
 ### Wiring things up
 
@@ -74,11 +87,12 @@ Yellow=SDA, White=SCL, and Blue=OUT on the DHT11.
 	* VCC <----> 3V
 	* GND <----> G
 
-Image of the wired-up breadboard:<br>
+### Image of the wired-up breadboard
+
 ![wired breadboard](GenericESP8266wiring.jpeg)
 
-Fritzing diagram:<br>
-![wired breadboard](genericESP8266fritzing.png)
+### Fritzing diagram
 
+![wired breadboard](genericESP8266fritzing.png)
 
 
