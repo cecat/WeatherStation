@@ -68,18 +68,18 @@ In the image below I'm using Black=GND, Orange=VCC,
 Yellow=SDA, White=SCL, and Blue=OUT on the DHT11.
 
 * OLED (display)
-	* SCL <----> D4
 	* SDA <----> D3
+	* SCL <----> D4
 	* VCC <----> 3V
 	* GND <----> G
 * BH1750 (light intensity)
-	* SCL <----> D4
 	* SDA <----> D3
+	* SCL <----> D4
 	* VCC <----> 3V
 	* GND <----> G
 * BMP180 (atmospheric pressure, temperature, relative humidity)
-	* SCL <----> D4
 	* SDA <----> D3
+	* SCL <----> D4
 	* VCC <----> 3V
 	* GND <----> G
 * DHT11 (temperature, relative humidity)
