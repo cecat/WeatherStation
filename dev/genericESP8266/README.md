@@ -103,6 +103,8 @@ and the
 (temperature, relative humidity), with output connected to pin D5.
 humidity) connected via pin D5.
 
+Note that different versions of these sensors exist, with different pin assignments, so your wiring setup may differ slighly from the one shown here. Check each of your sensor pins to be sure they are connected per the pin assignments shown in text above (XXX <---> PIN).
+
 ![wired breadboard](genericESP8266fritzing2.png)
 
 
