@@ -92,6 +92,16 @@ Yellow=SDA, White=SCL, and Blue=OUT on the DHT11.
 ![wired breadboard](GenericESP8266wiring.jpeg)
 
 ### Fritzing diagram
+Left to right at top are the
+[0.96" OLED display](https://www.amazon.com/Diymall-Yellow-Arduino-Display-Raspberry/dp/B00O2LLT30?th=1),
+[BH1750](https://www.instructables.com/BH1750-Digital-Light-Sensor/)
+(light intensity), and
+[BMP180](https://www.adafruit.com/product/1603)
+(barometric pressure, temperature, altitude), all connected via I2C,
+and the
+[DHT11](https://components101.com/sensors/dht11-temperature-sensor)
+(temperature, relative humidity), with output connected to pin D5.
+humidity) connected via pin D5.
 
 ![wired breadboard](genericESP8266fritzing2.png)
 
