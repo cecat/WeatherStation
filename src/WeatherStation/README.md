@@ -8,9 +8,8 @@ and
 [Weather Meter Kit](https://www.sparkfun.com/products/15901) to report
 weather data to a Home Assistant (HA) server. This assumes that you have
 a HA server operating already and serving as an MQTT broker. If not, then
-you should get that set up first.
-(there are some getting started materials in
-[this blog](https://blog.deepblueberry.com/)).
+you should start with the
+[Home Assistant Getting Started Guide](https://www.home-assistant.io/getting-started/).
 
 You should already have followed the instructions in the 
 [dev](https://github.com/cecat/WeatherStation/tree/main/dev) directory
