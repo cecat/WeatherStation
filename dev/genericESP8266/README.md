@@ -93,6 +93,6 @@ Yellow=SDA, White=SCL, and Blue=OUT on the DHT11.
 
 ### Fritzing diagram
 
-![wired breadboard](genericESP8266fritzing.png)
+![wired breadboard](genericESP8266fritzing2.png)
 
 
