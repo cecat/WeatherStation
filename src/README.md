@@ -6,17 +6,13 @@ weather kit(s).  You will need to
 and you will need to
 have the Arduino IDE app set up on your computer. 
 
-To keep the instructions all in one place, each of the src subdirectories
-has all of the getting started materials you need after you assemble the 
-hardware.
+Here we assume you have assembled your kits, and we will cover the installation
+of the Arduino IDE and setting it up to communicate with your kit via USB.
 
-## Setting up Arduino IDE and USB Communications
+Once you complete these steps you can select the kit and variant you are working
+with and follow the kit- and variant-specific instructions in that directory.
 
-All of these projects use the Arduino IDE application, which connects to
-the processor board via USB. Once you set this up you can move on to the 
-version of code you want to work with here.
-
-### 1. Download and Install USB-To-Serial Driver
+## 1. Download and Install USB-To-Serial Driver
 
 Download the
 [Mac OSX Driver](https://www.silabs.com/documents/public/software/Mac_OSX_VCP_Driver.zip).
@@ -31,11 +27,13 @@ your system and do you want to cancel or **Open System Settings**.
 Select the latter and select the **Allow** button in the
 *Privacy & Security* window that appears.
 
-Repeat these steps to install the cH34 drivers, also a zip
+Repeat these steps to install the **CH34** drivers, also a zip
 file, from the
 [ch34xser_macos git repository](https://github.com/WCHSoftGroup/ch34xser_macos).
- Here, there is a .dmg file that you can download (rather than going to the
-linked site, which is not in English). Once unzipped, it will tell you
+There you will find a .dmg file that you can download (rather than going to the
+linked site, which is not in English).
+
+Once unzipped, it will tell you
 to drag the CH34xVCPDriver installer into your Applications folder.
 
 Do that, open it,  and again when you receive the system blocked message
@@ -49,7 +47,7 @@ If you are a Windows PC user, there is a
 who will walk you through checking to see if you need the driver, and finding and
 installing the driver if you need it.*
 
-### 2. Download and Install the Arduino IDE app
+## 2. Download and Install the Arduino IDE app
 
 Download and install the Arduino IDE app, which allows you to write and
 upload software (*sketches*) to the processor in the weather kit.
@@ -58,5 +56,3 @@ upload software (*sketches*) to the processor in the weather kit.
 open, and move the app to your Applications folder.
 * Windows: [Download via SparkFun](https://learn.sparkfun.com/tutorials/installing-arduino-ide#windows) and follow the directions at the download page.
 
-Once you have this app installed you're ready to move on to the instructions
-for the specific kit and variant you want to build.
