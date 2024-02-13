@@ -5,7 +5,7 @@ These instructions are for a generic ESP8266 weather kit for Arduino sold by
 a not-very-helpful manual from a group called 'ideaSpark' but there is a
 [getting started guide](https://www.amazon.com/ESP8266-Weather-Station-Getting-Started-ebook/dp/B01LFX8Z5W/ref=sr_1_3?crid=CWIBWFT59Q82)
 written by [Daniel Eichhorn](https://github.com/squix78)
-that you can get for Kindle that looks *very* good (as do his
+that you can get for Kindle that is *very* good (see also his
 [github repositories](https://github.com/squix78)).
 
 The instructions here are tested only on a Mac.
