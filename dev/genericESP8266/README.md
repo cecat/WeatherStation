@@ -89,6 +89,12 @@ Yellow=SDA, White=SCL, and Blue=OUT on the DHT11.
 
 ### Image of the wired-up breadboard
 
+In the image I am using a breadboard with VCC and GND buses on each side.
+The ESP8266 is plugged in only on one side as for these projects we don't 
+need the pins on the other side of the board. VCC and GND from the 
+ESP8266 are connected to the VCC and GND buses at top, and the board
+is powered via USB.
+
 ![wired breadboard](GenericESP8266wiring.jpeg)
 
 ### Fritzing diagram
