@@ -101,7 +101,6 @@ Left to right at top are the
 and the
 [DHT11](https://components101.com/sensors/dht11-temperature-sensor)
 (temperature, relative humidity), with output connected to pin D5.
-humidity) connected via pin D5.
 
 Note that there are different versions of breakout boards that hold
 these sensors, with differences in pin assignments. Consequently,
