@@ -108,6 +108,6 @@ your wiring setup may differ slighly from the one shown here.
 Check each of your sensor breakout pins to be sure they are
 connected per the pin assignments shown in text above (XXX <---> PIN).
 
-![wired breadboard](genericESP8266fritzing2.png)
+![wired breadboard](genericESP8266fritzing.png)
 
 
