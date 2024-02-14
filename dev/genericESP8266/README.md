@@ -92,6 +92,12 @@ Yellow=SDA, White=SCL, and Blue=OUT on the DHT11.
 ![wired breadboard](GenericESP8266wiring.jpeg)
 
 ### Fritzing diagram
+The fritzing diagram below exactly matches the photograph above, including
+the wire colors, where I 've used
+black for GND, orange for VCC (yes, it is better to use red, so I did so in the
+fritzing diagram)),
+blue for OUT, yellow for SDA, and white for SCL.
+
 Left to right at top are the
 [0.96" OLED display](https://www.amazon.com/Diymall-Yellow-Arduino-Display-Raspberry/dp/B00O2LLT30?th=1),
 [BH1750](https://www.instructables.com/BH1750-Digital-Light-Sensor/)
