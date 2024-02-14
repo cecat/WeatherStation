@@ -103,7 +103,11 @@ and the
 (temperature, relative humidity), with output connected to pin D5.
 
 Note that there are different versions of breakout boards that hold
-these sensors, with differences in pin assignments. Consequently,
+these sensors, with differences in pin assignments. For instance, with
+the more common version of the BH1750 the pins (left-to-right in the 
+fritzing figure) are (ADDR-SDA-SCL-GND-VCC) whereas the one I am using
+has assignments (GND-ADDR-SDA-SCL-VCC).
+Consequently,
 your wiring setup may differ slighly from the one shown here.
 Check each of your sensor breakout pins to be sure they are
 connected per the pin assignments shown in text above (XXX <---> PIN).
