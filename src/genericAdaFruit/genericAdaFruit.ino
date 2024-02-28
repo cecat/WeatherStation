@@ -294,8 +294,9 @@ void MQTT_connect() {
       Serial.println("Giving up on MQTT after 10 attempts.");
       //flashLed(250, 250, 0); // wedged
       return; 
+    }
+    Serial.println("MQTT Reconnected!");
   }
-  Serial.println("MQTT Reconnected!");
 }
 
 /* Blink the built-in LED 

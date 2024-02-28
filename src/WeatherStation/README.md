@@ -105,11 +105,8 @@ Use the search function in the Library Manager pane, to find
 each of the following and then selecting the INSTALL button.
 In multiple cases you'll be asked if you also want to install
 dependencies, and you want to always say yes to this:
-* SparkFun BME
-* SparkFun VEML6075
-* SparkFun AS3935
-* SparkFun Weather Meter Kit Arduino
-* ESP32MQTTClient by Patrick Lapointe
+* [SparkFun Weather Meter Kit Arduino](https://github.com/sparkfun/SparkFun_Weather_Meter_Kit_Arduino_Library)
+* [ESPMQTTClient by Patrick Lapointe](https://github.com/plapointe6/EspMQTTClient)
 
 Quit/restart the Arduino IDE app just for good measure.
 

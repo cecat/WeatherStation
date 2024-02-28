@@ -82,6 +82,9 @@ the weather station sketch (code).
 
 In the Arduion IDE, go to Libraries and search for and install
 (with dependencies) the following libraries:
+* [SparkFun BME](https://github.com/sparkfun/SparkFun_BME280_Arduino_Library)
+* [sparkfun veml6075](https://github.com/sparkfun/SparkFun_VEML6075_Arduino_Library)
+* [SparkFun AS3935](https://github.com/sparkfun/SparkFun_AS3935_Lightning_Detector_Arduino_Library)
 * Adafruit GFX Library
 * Adafruit SSD1306
 * BH1750 (many search hits... use "BH1750 by Christopher Laws")

@@ -76,7 +76,7 @@ are working with will walk you through.
 
 In the **src** directory are implementations that work with
 Home Assistant(HA) and AdaFruit's 
-[free MQTT service](io.adafruit.com).
+[free MQTT service](https://io.adafruit.com/).
 
 ### Security and Credentials: secrets.h
 
