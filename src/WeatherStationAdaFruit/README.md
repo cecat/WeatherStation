@@ -101,14 +101,10 @@ In the Arduino IDE app, select **Tools -> Manage Libraries**.
 This opens the Library Manager pane.
 
 Use the search function in the Library Manager pane, to find
-each of the following and then selecting the INSTALL button.
-In multiple cases you'll be asked if you also want to install
-dependencies, and you want to always say yes to this:
-* SparkFun BME
-* SparkFun VEML6075
-* SparkFun AS3935
+each of the following and then selecting the INSTALL button:
+
 * SparkFun Weather Meter Kit Arduino
-* Adafruit MQTT Library
+* [Adafruit MQTT Library](https://github.com/adafruit/Adafruit_MQTT_Library) (this will ask to also install Adafruit FONA, Adafruit SleepyDog, and WiFi101 (say 'install all'))
 
 Quit/restart the Arduino IDE app just for good measure.
 

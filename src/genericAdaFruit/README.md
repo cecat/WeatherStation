@@ -82,16 +82,11 @@ the weather station sketch (code).
 
 In the Arduion IDE, go to Libraries and search for and install
 (with dependencies) the following libraries:
-* [SparkFun BME](https://github.com/sparkfun/SparkFun_BME280_Arduino_Library)
-* [sparkfun veml6075](https://github.com/sparkfun/SparkFun_VEML6075_Arduino_Library)
-* [SparkFun AS3935](https://github.com/sparkfun/SparkFun_AS3935_Lightning_Detector_Arduino_Library)
-* Adafruit GFX Library
-* Adafruit SSD1306
-* BH1750 (many search hits... use "BH1750 by Christopher Laws")
-* DHT sensor library (by Adafruit)
-* ESP32MQTTClient by Patrick Lapointe
+* [Adafruit MQTT Library]()  (this will ask to also add Adafruit FONA, Adafruit SleepyDog, and WiFi101 (say yes))
+* [Adafruit SSD1306](https://github.com/adafruit/Adafruit_SSD1306) (this will ask to add Adafruit BusIO, Adafruit GFX (say yes))
+* [BH1750](https://github.com/claws/BH1750)
+* [Adafruit DHT](https://github.com/adafruit/DHT-sensor-library) (this will ask to add Adafruit Unified Sensor (say yes))
 
-The final library needed, SFE_BMP180, will have to be installed manually.  
 
 Navigate to 
 [https://github.com/LowPowerLab/SFE_BMP180](https://github.com/LowPowerLab/SFE_BMP180) 

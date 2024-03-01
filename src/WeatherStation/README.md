@@ -102,11 +102,10 @@ In the Arduino IDE app, select **Tools -> Manage Libraries**.
 This opens the Library Manager pane.
 
 Use the search function in the Library Manager pane, to find
-each of the following and then selecting the INSTALL button.
-In multiple cases you'll be asked if you also want to install
-dependencies, and you want to always say yes to this:
+each of the following and then selecting the INSTALL button:
+* [ESPMQTTClient](https://github.com/plapointe6/EspMQTTClient) (this will ask to add PubSubClient (say yes))
 * [SparkFun Weather Meter Kit Arduino](https://github.com/sparkfun/SparkFun_Weather_Meter_Kit_Arduino_Library)
-* [ESPMQTTClient by Patrick Lapointe](https://github.com/plapointe6/EspMQTTClient)
+
 
 Quit/restart the Arduino IDE app just for good measure.
 
